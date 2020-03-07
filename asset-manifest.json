@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/wibu-never-die/static/css/main.5ecd60fb.chunk.css",
+    "main.js": "/wibu-never-die/static/js/main.48687a30.chunk.js",
+    "main.js.map": "/wibu-never-die/static/js/main.48687a30.chunk.js.map",
+    "runtime-main.js": "/wibu-never-die/static/js/runtime-main.c374a816.js",
+    "runtime-main.js.map": "/wibu-never-die/static/js/runtime-main.c374a816.js.map",
+    "static/css/2.47e06e2e.chunk.css": "/wibu-never-die/static/css/2.47e06e2e.chunk.css",
+    "static/js/2.7977687b.chunk.js": "/wibu-never-die/static/js/2.7977687b.chunk.js",
+    "static/js/2.7977687b.chunk.js.map": "/wibu-never-die/static/js/2.7977687b.chunk.js.map",
+    "index.html": "/wibu-never-die/index.html",
+    "precache-manifest.19cc68149b474b60da08b11bc2e95e40.js": "/wibu-never-die/precache-manifest.19cc68149b474b60da08b11bc2e95e40.js",
+    "service-worker.js": "/wibu-never-die/service-worker.js",
+    "static/css/2.47e06e2e.chunk.css.map": "/wibu-never-die/static/css/2.47e06e2e.chunk.css.map",
+    "static/css/main.5ecd60fb.chunk.css.map": "/wibu-never-die/static/css/main.5ecd60fb.chunk.css.map",
+    "static/js/2.7977687b.chunk.js.LICENSE.txt": "/wibu-never-die/static/js/2.7977687b.chunk.js.LICENSE.txt",
+    "static/media/Kabaneri_1366.png": "/wibu-never-die/static/media/Kabaneri_1366.213676c0.png",
+    "static/media/Kabaneri_1920.png": "/wibu-never-die/static/media/Kabaneri_1920.9195e018.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.c374a816.js",
+    "static/css/2.47e06e2e.chunk.css",
+    "static/js/2.7977687b.chunk.js",
+    "static/css/main.5ecd60fb.chunk.css",
+    "static/js/main.48687a30.chunk.js"
+  ]
+}
