@@ -20,10 +20,19 @@ import { Heart } from "react-feather";
 import * as actions from "../../../actions/index";
 import LeftSideBarWrapper from "./LeftSideBar.style";
 
-const LeftSideBar = ({ category, getCategory, currentUser, logIn }) => {
+const LeftSideBar = ({
+  category,
+  getCategory,
+  currentUser,
+  logIn,
+  setTextMangaFilter
+}) => {
   const [searchText, setSearchText] = useState("");
   const listCategory = useMemo(
-    () => category.filter(item => item.name.includes(searchText)),
+    () =>
+      category.filter(item =>
+        item.name.toLowerCase().includes(searchText.toLowerCase())
+      ),
     [category, searchText]
   );
   const [currentCategoryMouseDown, setCurrentCategoryMouseDown] = useState(-1);
@@ -53,6 +62,15 @@ const LeftSideBar = ({ category, getCategory, currentUser, logIn }) => {
       toggle();
     }
   });
+  const [filterType, setFilterType] = useState("Category");
+  const changeFilterType = () => {
+    if (filterType === "Category") return setFilterType("Manga");
+    return setFilterType("Category");
+  };
+  const letSetSearchText = value => {
+    if (filterType === "Category") return setSearchText(value);
+    return setTextMangaFilter(value);
+  };
   return (
     <LeftSideBarWrapper>
       <div className="left-side-bar">
@@ -62,15 +80,24 @@ const LeftSideBar = ({ category, getCategory, currentUser, logIn }) => {
           style={{ height: "90px", width: "100%" }}
           alt="img-logo"
         />
-        <div className="wrapper">
-          <div className="search-icon">
-            <input
-              className="search-circle"
-              type="text"
-              value={searchText}
-              onChange={e => setSearchText(e.target.value)}
-            />
-            <div className="search-bar" />
+        <div className="action-group">
+          <div className="search-type-favorites">
+            <label className="rocker rocker-small">
+              <input type="checkbox" onChange={changeFilterType} />
+              <span className="switch-left">MA</span>
+              <span className="switch-right">CA</span>
+            </label>
+            {!!currentUser.id && <Heart size="50" color="pink" />}
+          </div>
+          <div className="wrapper">
+            <div className="search-icon">
+              <input
+                className="search-circle"
+                type="text"
+                onChange={e => letSetSearchText(e.target.value)}
+              />
+              <div className="search-bar" />
+            </div>
           </div>
         </div>
         <div id="left-side-bar-scroll" className="list-category">
@@ -97,7 +124,6 @@ const LeftSideBar = ({ category, getCategory, currentUser, logIn }) => {
               onClick={toggle}
             />
           )}
-          {!!currentUser.id && <Heart size="50" color="pink" />}
           <LogOut className="ne-resize" size="50" color="#ff5151" />
         </div>
         <Modal isOpen={modal} toggle={toggle}>
@@ -155,7 +181,11 @@ const LeftSideBar = ({ category, getCategory, currentUser, logIn }) => {
 };
 
 const mapStatetoProps = state => {
-  return { category: state.category, currentUser: state.currentUser };
+  return {
+    category: state.category,
+    currentUser: state.currentUser,
+    filterType: state.filterType
+  };
 };
 const mapDispatchToProps = dispatch => {
   return {
@@ -164,6 +194,9 @@ const mapDispatchToProps = dispatch => {
     },
     logIn: data => {
       dispatch(actions.logIn(data));
+    },
+    setTextMangaFilter: data => {
+      dispatch(actions.setTextMangaFilter(data));
     }
   };
 };

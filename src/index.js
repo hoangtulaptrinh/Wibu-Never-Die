@@ -1,4 +1,5 @@
 import React from "react";
+import { Router, View } from "react-navi";
 import ReactDOM from "react-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { createStore, applyMiddleware } from "redux";
@@ -12,17 +13,18 @@ import HTML5Backend from "react-dnd-html5-backend";
 
 import "./index.css";
 import * as serviceWorker from "./serviceWorker";
-import ChooseManga from "./components/main/ChooseManga";
-
+import routes from "./routes";
 const store = createStore(myReducer, applyMiddleware(thunk));
 
 ReactDOM.render(
-  <Provider store={store}>
-    <DndProvider backend={HTML5Backend}>
-      <ChooseManga />
-      <ToastContainer />
-    </DndProvider>
-  </Provider>,
+  <Router routes={routes}>
+    <Provider store={store}>
+      <DndProvider backend={HTML5Backend}>
+        <View />
+        <ToastContainer />
+      </DndProvider>
+    </Provider>
+  </Router>,
   document.getElementById("root")
 );
 

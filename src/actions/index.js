@@ -61,3 +61,7 @@ export const logIn = data => {
 export const setCurrentUser = data => {
   return { type: actionTypes.setCurrentUser, data: data };
 };
+
+export const setTextMangaFilter = data => {
+  return { type: actionTypes.setTextMangaFilter, data: data };
+};

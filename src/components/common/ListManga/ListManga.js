@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Row, Col } from "reactstrap";
 import { connect } from "react-redux";
 import find from "lodash/find";
@@ -12,7 +12,7 @@ import {
   toastWarning
 } from "../../../Helper/ToastHelper";
 import HeartGif from "../../../asses/image/HeartGif.gif";
-const ListManga = ({ manga, getManga, currentUser }) => {
+const ListManga = ({ manga, getManga, currentUser, textMangaFilter }) => {
   const [showFavoritesList, setShowFavoritesList] = useState(false);
   const [hoverFavoritesList, setHoverFavoritesList] = useState(false);
   useEffect(() => {
@@ -28,14 +28,21 @@ const ListManga = ({ manga, getManga, currentUser }) => {
     toastError(
       `${
         find(manga, item => item.id === id).name
-      }Đã Có Trong Vào Danh Sách Yêu Thích`
+      } Đã Có Trong Vào Danh Sách Yêu Thích`
     );
     toastWarning(
       `${
         find(manga, item => item.id === id).name
-      }Đã Có Trong Vào Danh Sách Yêu Thích`
+      } Đã Có Trong Vào Danh Sách Yêu Thích`
     );
   };
+  const listManga = useMemo(
+    () =>
+      manga.filter(item =>
+        item.name.toLowerCase().includes(textMangaFilter.toLowerCase())
+      ),
+    [manga, textMangaFilter]
+  );
   return (
     <ListMangaWrapper>
       <div className="list-manga">
@@ -52,7 +59,7 @@ const ListManga = ({ manga, getManga, currentUser }) => {
         )}
         <div id="main-content-scroll" className="main-content">
           <Row>
-            {manga.map((manga, index) => (
+            {listManga.map((manga, index) => (
               <Col sm="6" key={index}>
                 <div className="cover-manga">
                   <Manga
@@ -75,7 +82,11 @@ const ListManga = ({ manga, getManga, currentUser }) => {
 };
 
 const mapStatetoProps = state => {
-  return { manga: state.manga, currentUser: state.currentUser };
+  return {
+    manga: state.manga,
+    currentUser: state.currentUser,
+    textMangaFilter: state.textMangaFilter
+  };
 };
 const mapDispatchToProps = dispatch => {
   return {
