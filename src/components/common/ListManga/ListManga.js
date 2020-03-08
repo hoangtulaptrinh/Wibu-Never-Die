@@ -1,24 +1,55 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Row, Col } from "reactstrap";
 import { connect } from "react-redux";
-
+import find from "lodash/find";
 import Manga from "./Manga";
 import FavoritesList from "../FavoritesList";
 import ListMangaWrapper from "./ListManga.style";
 import * as actions from "../../../actions/index";
-
-const ListManga = ({ manga, getManga }) => {
+import {
+  toastSuccess,
+  toastError,
+  toastWarning
+} from "../../../Helper/ToastHelper";
+import HeartGif from "../../../asses/image/HeartGif.gif";
+const ListManga = ({ manga, getManga, currentUser }) => {
+  const [showFavoritesList, setShowFavoritesList] = useState(false);
+  const [hoverFavoritesList, setHoverFavoritesList] = useState(false);
   useEffect(() => {
     getManga();
     // eslint-disable-next-line
   }, []);
   const addToFavoritesList = id => {
-    console.log(id);
+    toastSuccess(
+      `Đã Thêm ${
+        find(manga, item => item.id === id).name
+      } Vào Danh Sách Yêu Thích`
+    );
+    toastError(
+      `${
+        find(manga, item => item.id === id).name
+      }Đã Có Trong Vào Danh Sách Yêu Thích`
+    );
+    toastWarning(
+      `${
+        find(manga, item => item.id === id).name
+      }Đã Có Trong Vào Danh Sách Yêu Thích`
+    );
   };
   return (
     <ListMangaWrapper>
       <div className="list-manga">
-        <div className="background-image-blur" />
+        {!hoverFavoritesList && <div className="background-image-blur" />}
+        {hoverFavoritesList && (
+          <div
+            className="background-image-blur"
+            style={{
+              background: `url(${HeartGif})`,
+              filter: "blur(0px)",
+              WebkitFilter: "blur(0px)"
+            }}
+          />
+        )}
         <div id="main-content-scroll" className="main-content">
           <Row>
             {manga.map((manga, index) => (
@@ -27,12 +58,16 @@ const ListManga = ({ manga, getManga }) => {
                   <Manga
                     manga={manga}
                     addToFavoritesList={addToFavoritesList}
+                    setShowFavoritesList={setShowFavoritesList}
+                    showFavoritesList={showFavoritesList}
                   />
                 </div>
               </Col>
             ))}
           </Row>
-          <FavoritesList />
+          {!!currentUser.id && showFavoritesList && (
+            <FavoritesList setHoverFavoritesList={setHoverFavoritesList} />
+          )}
         </div>
       </div>
     </ListMangaWrapper>
@@ -40,7 +75,7 @@ const ListManga = ({ manga, getManga }) => {
 };
 
 const mapStatetoProps = state => {
-  return { manga: state.manga };
+  return { manga: state.manga, currentUser: state.currentUser };
 };
 const mapDispatchToProps = dispatch => {
   return {

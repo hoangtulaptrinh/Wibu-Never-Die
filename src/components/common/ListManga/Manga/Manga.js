@@ -14,9 +14,11 @@ import MangaWrapper from "./Manga.style";
 
 const itemSource = {
   beginDrag(props) {
+    props.setShowFavoritesList(true);
     return {};
   },
   endDrag(props, monitor, component) {
+    props.setShowFavoritesList(false);
     if (!monitor.didDrop()) {
       return;
     }
@@ -33,7 +35,7 @@ function collect(connect, monitor) {
 }
 
 const Manga = props => {
-  const { manga } = props;
+  const { manga, showFavoritesList } = props;
   const [show, setShow] = useState(false);
   const showInfoManga = () => setShow(true);
   const hideInfoManga = () => setShow(false);
@@ -61,7 +63,7 @@ const Manga = props => {
             />
             {show === true && (
               <div className="info-manga">
-                {`${manga.title} (${manga.episodes} Tập)`}
+                {!showFavoritesList && `${manga.title} (${manga.episodes} Tập)`}
               </div>
             )}
           </div>

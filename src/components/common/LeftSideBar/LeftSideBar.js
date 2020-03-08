@@ -15,10 +15,12 @@ import { connect } from "react-redux";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import isEmpty from "lodash/isEmpty";
+import { Heart } from "react-feather";
+
 import * as actions from "../../../actions/index";
 import LeftSideBarWrapper from "./LeftSideBar.style";
 
-const LeftSideBar = ({ category, getCategory }) => {
+const LeftSideBar = ({ category, getCategory, currentUser, logIn }) => {
   const [searchText, setSearchText] = useState("");
   const listCategory = useMemo(
     () => category.filter(item => item.name.includes(searchText)),
@@ -47,7 +49,8 @@ const LeftSideBar = ({ category, getCategory }) => {
         .required()
     }),
     onSubmit: values => {
-      alert(JSON.stringify(values, null, 2));
+      logIn(values);
+      toggle();
     }
   });
   return (
@@ -86,12 +89,15 @@ const LeftSideBar = ({ category, getCategory }) => {
           ))}
         </div>
         <div className="log-in-log-out">
-          <LogIn
-            className="e-resize"
-            size="50"
-            color="#00a8cc"
-            onClick={toggle}
-          />
+          {!currentUser.id && (
+            <LogIn
+              className="e-resize"
+              size="50"
+              color="#00a8cc"
+              onClick={toggle}
+            />
+          )}
+          {!!currentUser.id && <Heart size="50" color="pink" />}
           <LogOut className="ne-resize" size="50" color="#ff5151" />
         </div>
         <Modal isOpen={modal} toggle={toggle}>
@@ -149,12 +155,15 @@ const LeftSideBar = ({ category, getCategory }) => {
 };
 
 const mapStatetoProps = state => {
-  return { category: state.category };
+  return { category: state.category, currentUser: state.currentUser };
 };
 const mapDispatchToProps = dispatch => {
   return {
     getCategory: data => {
       dispatch(actions.getCategory(data));
+    },
+    logIn: data => {
+      dispatch(actions.logIn(data));
     }
   };
 };

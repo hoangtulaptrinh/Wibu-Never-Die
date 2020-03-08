@@ -5,6 +5,8 @@ import { createStore, applyMiddleware } from "redux";
 import myReducer from "./reduces/index";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { DndProvider } from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
 
@@ -18,6 +20,7 @@ ReactDOM.render(
   <Provider store={store}>
     <DndProvider backend={HTML5Backend}>
       <ChooseManga />
+      <ToastContainer />
     </DndProvider>
   </Provider>,
   document.getElementById("root")

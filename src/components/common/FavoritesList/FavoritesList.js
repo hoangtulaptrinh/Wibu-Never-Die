@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { DropTarget } from "react-dnd";
 import { Heart } from "react-feather";
 
@@ -23,8 +23,11 @@ const canDropTheTarget = {
 
 const FavoritesList = props => {
   const { connectDropTarget, hovered } = props;
-  const backgroundColor = hovered ? "lightgreen" : "";
-
+  const backgroundColor = hovered ? "" : "";
+  useEffect(() => {
+    if (hovered) props.setHoverFavoritesList(true);
+    else props.setHoverFavoritesList(false);
+  }, [hovered, props]);
   return connectDropTarget(
     <div>
       <FavoritesListWrapper>

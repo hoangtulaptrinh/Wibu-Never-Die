@@ -1,14 +1,14 @@
 import actionTypes from "../const/actionTypes";
 import axios from "axios";
-
-import fakeData from "../fakeData";
 import MockAdapter from "axios-mock-adapter";
 
+import fakeData from "../fakeData";
+import { toastSuccess, toastError } from "../Helper/ToastHelper";
 var mock = new MockAdapter(axios);
 
 mock.onGet("/category").reply(200, fakeData.category);
 mock.onGet("/manga").reply(200, fakeData.manga);
-
+mock.onPost("/log_in").reply(200, fakeData.log_in);
 export const getCategory = () => {
   return dispatch => {
     axios
@@ -41,4 +41,23 @@ export const getManga = () => {
 
 export const setManga = data => {
   return { type: actionTypes.setManga, data: data };
+};
+
+export const logIn = data => {
+  return dispatch => {
+    axios
+      .post("/log_in", data)
+      .then(res => {
+        dispatch(setCurrentUser(res.data));
+        toastSuccess("Đăng Nhập Thành Công");
+      })
+      .catch(error => {
+        console.log(error);
+        toastError(error);
+      });
+  };
+};
+
+export const setCurrentUser = data => {
+  return { type: actionTypes.setCurrentUser, data: data };
 };

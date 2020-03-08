@@ -190,5 +190,10 @@ export default {
       title:
         "Hunter × Hunter là bộ manga dành cho thanh thiếu niên nổi tiếng của họa sĩ truyện tranh người Nhật Yoshihiro Togashi. Hunter x Hunter được nhà xuất bản Shueisha đăng dài kì trên tạp chí Weekly Shōnen Jump từ ngày 3 tháng 3 năm 1998 cho tới nay"
     }
-  ]
+  ],
+  log_in: {
+    id: 1,
+    role: "admin",
+    name: "name_admin"
+  }
 };
