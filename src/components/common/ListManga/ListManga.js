@@ -2,6 +2,8 @@ import React, { useState, useEffect, useMemo } from "react";
 import { Row, Col } from "reactstrap";
 import { connect } from "react-redux";
 import find from "lodash/find";
+import { useCurrentRoute } from "react-navi";
+
 import Manga from "./Manga";
 import FavoritesList from "../FavoritesList";
 import ListMangaWrapper from "./ListManga.style";
@@ -11,8 +13,12 @@ import {
   toastError,
   toastWarning
 } from "../../../Helper/ToastHelper";
+
 import HeartGif from "../../../asses/image/HeartGif.gif";
+import CryGif from "../../../asses/image/CryGif.gif";
+
 const ListManga = ({ manga, getManga, currentUser, textMangaFilter }) => {
+  const currentRoute = useCurrentRoute().url.pathname;
   const [showFavoritesList, setShowFavoritesList] = useState(false);
   const [hoverFavoritesList, setHoverFavoritesList] = useState(false);
   useEffect(() => {
@@ -51,7 +57,13 @@ const ListManga = ({ manga, getManga, currentUser, textMangaFilter }) => {
           <div
             className="background-image-blur"
             style={{
-              background: `url(${HeartGif})`,
+              background: `url(${
+                currentRoute === "/Wibu-Never-Die"
+                  ? `${HeartGif}`
+                  : currentRoute === "/Wibu-Never-Die/Favorites-Page"
+                  ? `${CryGif}`
+                  : ""
+              })`,
               filter: "blur(0px)",
               WebkitFilter: "blur(0px)"
             }}

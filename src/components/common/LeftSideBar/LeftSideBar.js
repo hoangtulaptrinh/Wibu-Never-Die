@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useEffect } from "react";
+import { useNavigation } from "react-navi";
 import {
   Button,
   Modal,
@@ -24,9 +25,11 @@ const LeftSideBar = ({
   category,
   getCategory,
   currentUser,
+  setCurrentUser,
   logIn,
   setTextMangaFilter
 }) => {
+  const { navigate } = useNavigation();
   const [searchText, setSearchText] = useState("");
   const listCategory = useMemo(
     () =>
@@ -71,6 +74,11 @@ const LeftSideBar = ({
     if (filterType === "Category") return setSearchText(value);
     return setTextMangaFilter(value);
   };
+  const letLogOut = () => {
+    localStorage.removeItem("currentUser");
+    setCurrentUser({});
+    navigate("/Wibu-Never-Die");
+  };
   return (
     <LeftSideBarWrapper>
       <div className="left-side-bar">
@@ -79,6 +87,7 @@ const LeftSideBar = ({
           src="https://www.epicdope.com/wp-content/uploads/2020/01/manga-logo.png.webp"
           style={{ height: "90px", width: "100%" }}
           alt="img-logo"
+          onClick={() => navigate("/Wibu-Never-Die")}
         />
         <div className="action-group">
           <div className="search-type-favorites">
@@ -87,7 +96,14 @@ const LeftSideBar = ({
               <span className="switch-left">MA</span>
               <span className="switch-right">CA</span>
             </label>
-            {!!currentUser.id && <Heart size="50" color="pink" />}
+            {localStorage.currentUser !== undefined && (
+              <Heart
+                size="50"
+                color="pink"
+                className="cursor"
+                onClick={() => navigate("/Wibu-Never-Die/Favorites-Page")}
+              />
+            )}
           </div>
           <div className="wrapper">
             <div className="search-icon">
@@ -116,7 +132,7 @@ const LeftSideBar = ({
           ))}
         </div>
         <div className="log-in-log-out">
-          {!currentUser.id && (
+          {localStorage.currentUser === undefined && (
             <LogIn
               className="e-resize"
               size="50"
@@ -124,7 +140,12 @@ const LeftSideBar = ({
               onClick={toggle}
             />
           )}
-          <LogOut className="ne-resize" size="50" color="#ff5151" />
+          <LogOut
+            className="ne-resize"
+            size="50"
+            color="#ff5151"
+            onClick={letLogOut}
+          />
         </div>
         <Modal isOpen={modal} toggle={toggle}>
           <form onSubmit={formik.handleSubmit}>
@@ -197,6 +218,9 @@ const mapDispatchToProps = dispatch => {
     },
     setTextMangaFilter: data => {
       dispatch(actions.setTextMangaFilter(data));
+    },
+    setCurrentUser: data => {
+      dispatch(actions.setCurrentUser(data));
     }
   };
 };
