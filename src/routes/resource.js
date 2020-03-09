@@ -3,5 +3,5 @@ import { route } from "navi";
 import ChooseManga from "../components/main/ChooseManga";
 
 export const routes = {
-  "/": route({ title: "ChooseManga", view: <ChooseManga /> })
+  "/Wibu-Never-Die": route({ title: "ChooseManga", view: <ChooseManga /> })
 };
