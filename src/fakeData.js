@@ -195,5 +195,28 @@ export default {
     id: 1,
     role: "admin",
     name: "name_admin"
-  }
+  },
+  image_manga: [
+    "http://proxy.imageinstant.com/?data=2Hv+r/yrlf9bEKLtVo4L0O8sVQHfKj8JV/ctY0DYt/2Y2JzUr14smvZskmgaSqDuRl+/CNqGT0GZ90QVoQRX1xnqXDS1ALjhQ2y2Jk+jyZ1Js666A0G/yBIxp9cJ16kMyaWxkruUEuc/hvPuwEhj8pJg0A/d0qQUZNFVhu/pFM/iilyfT07Qspx6eyuPaL80",
+    "http://proxy.imageinstant.com/?data=2Hv+r/yrlf9bEKLtVo4L0O8sVQHfKj8JV/ctY0DYt/2Y2JzUr14smvZskmgaSqDuKRi7xKuiF7bnvjGZO3v5Ad5ewNLqvNJVcEQrhQn8EyBOslBxe7LJ/4EEov0g/TgCDXcxjX8AVO5QA2wvwKasInOHhlNukMgX9qNxpJhKXMIZXEgYTRA+EbGde/oNVGEm",
+    "http://proxy.imageinstant.com/?data=2Hv+r/yrlf9bEKLtVo4L0O8sVQHfKj8JV/ctY0DYt/2Y2JzUr14smvZskmgaSqDu4Y32V2xGPmOu2iitaPP9hglMACXDdt51NAkQr8KbAbd1MqZouo/QznS+PnEMruYvsQ2sDpsegmfehOkk36HM4UOowQWwKMmMK1fYxiNBnsikuij1uYXg1/VJbCWvki8D",
+    "http://proxy.imageinstant.com/?data=2Hv+r/yrlf9bEKLtVo4L0O8sVQHfKj8JV/ctY0DYt/2Y2JzUr14smvZskmgaSqDudjBh8pCrFCniJD/opGktfgscjaRQM9SvyOb+m3W9HRCYSeSQlQ0Ou7wmLKbYdKvximdQ98oe16WtZqVFNajhftn7Pmjk4oxjt7vuw0YSVrQaQKW2lMR0muDibRP/OaI9",
+    "http://proxy.imageinstant.com/?data=2Hv+r/yrlf9bEKLtVo4L0O8sVQHfKj8JV/ctY0DYt/2Y2JzUr14smvZskmgaSqDuHpjqWodD/lz4D7oYwRuW6dI2KSaNKmkC/MRqDlWbp/+68iIjPaw/bW7i8ubmyVMetRI0PlUGj9kAewy+r5z+D0EtT7/gvZjmxRijp2LQrCfzl9Z5FzKy7OueusCSBFBE",
+    "http://proxy.imageinstant.com/?data=2Hv+r/yrlf9bEKLtVo4L0O8sVQHfKj8JV/ctY0DYt/2Y2JzUr14smvZskmgaSqDuIs2TqjjBmJG/roGVa6D6r8yEb+LOLhwlgzJbSJh5Yb6P+HeFolwlv9TjFgBGl+VG7yTynLUgCVfkIF3V/HPgTMmw+ZX2WyrcWyevB2sKs4hPb2V4HzgjvwD8ZC5oKjOz",
+    "http://proxy.imageinstant.com/?data=2Hv+r/yrlf9bEKLtVo4L0O8sVQHfKj8JV/ctY0DYt/2Y2JzUr14smvZskmgaSqDuYKlvffUaZcEMORcU+JAyo9UVnjfXwyCUPxGkspv/Dyy+BEsBQ6xVe7KTcqwR+Tzoo+o0l1ZaRq7bSb+I2eSFpbgv1946IExja9CCBfED/+ygKzOyX9ciuU09WMu0k3jS",
+    "http://proxy.imageinstant.com/?data=2Hv+r/yrlf9bEKLtVo4L0O8sVQHfKj8JV/ctY0DYt/2Y2JzUr14smvZskmgaSqDuMeLm2cr4OF59A0VHko+4qkDR7/HzLfL1aUx72O5ugJtRznBwojyxJZEeATBimQTVrtwJDLRK6y+gFXSWQE34qv9+Lu4OE5rt6NDDbM1qdZQPsnndsqXUp9kd5QEO3/G5",
+    "http://proxy.imageinstant.com/?data=2Hv+r/yrlf9bEKLtVo4L0O8sVQHfKj8JV/ctY0DYt/2Y2JzUr14smvZskmgaSqDuXnsqqxW6I5P0wzFLBVr2rRA1VZOs5XwumwiZhBH4six2L9N74WWb9AJgxF7FKtUYvGg2dPeL8UHivgQVUNb98bMSLXAXwnU7y39SJQMYy5cTu328gxhJBf4lDkjqDfrt",
+    "http://proxy.imageinstant.com/?data=2Hv+r/yrlf9bEKLtVo4L0O8sVQHfKj8JV/ctY0DYt/2Y2JzUr14smvZskmgaSqDuINh46QE1SMwzMjlcHCL0VMyvnIFMqkr2FPwEMnQVCXooH8wP8Uv1DUX7xuuxnDz4k0Dw4pxXq5bgLLkWfs/YXz4Bv1nzYBtz8CxRoYknyc4mShfcqF35LIHW75TA3dlY",
+    "http://proxy.imageinstant.com/?data=2Hv+r/yrlf9bEKLtVo4L0O8sVQHfKj8JV/ctY0DYt/2Y2JzUr14smvZskmgaSqDuyM9RxCTowKc8rk6DY24DhpCD0PRmx/DGOA8q2c9moHB4gXKxDQUaSshJKJNXug9iDpIKo8Vu6zsFSZtGoEhnzjEFnEMxw/AXEitCyZJAivHxtogA4+/4XtDElJC2asEe",
+    "http://proxy.imageinstant.com/?data=2Hv+r/yrlf9bEKLtVo4L0O8sVQHfKj8JV/ctY0DYt/2Y2JzUr14smvZskmgaSqDucPi1rfqEbqLER79xI4X4dzPcTl8+6InJVtgq/Ar3LzOMMdDcMY0eafoF1fya/pFG9EeaCKAHBZjeKhlVAcfXvVSutbSEoQSjoU9TXlYGZQNQVosrkcuUngevYfHwtIil",
+    "http://proxy.imageinstant.com/?data=2Hv+r/yrlf9bEKLtVo4L0O8sVQHfKj8JV/ctY0DYt/2Y2JzUr14smvZskmgaSqDujIQ/cF56H/DZIa3GPptObHRKYjBTbk7QOPH/ZwZtAAmcljdtmEk0fT5VSqDFkOi1wMfF6IU81BT5c8hfhBDrblLE6sX+P+og7ZlWwe2Ardb67KNQ09Zhi9q4AtZIKoeG",
+    "http://proxy.imageinstant.com/?data=2Hv+r/yrlf9bEKLtVo4L0O8sVQHfKj8JV/ctY0DYt/2Y2JzUr14smvZskmgaSqDu3jkPbqDBj/Qad0J8ZRpauuoF2mhAV8b4HGQTOY4QNGnDQiYIG8QTieSMTOoFITL0NPvlhEqsJnO/RXW2BUHrB2rS5sWiuwq5YORiMcsAaPQk7NfbVXQEAd+oDuaG80T/",
+    "http://proxy.imageinstant.com/?data=2Hv+r/yrlf9bEKLtVo4L0O8sVQHfKj8JV/ctY0DYt/2Y2JzUr14smvZskmgaSqDuUYbax/z+jVemvS06P7PZxjHj4rQ1ldDF56CaXcv2Th4PQZBatTglVpDxAtoWGA+URv+NgEFW2poys/CqDC6gCMGbNoJx6NhWE0Y8p2iY3BYsB0THU/z8vCkKHfTMsEb0",
+    "http://proxy.imageinstant.com/?data=2Hv+r/yrlf9bEKLtVo4L0O8sVQHfKj8JV/ctY0DYt/2Y2JzUr14smvZskmgaSqDuP6UayC6VKk52oUFBGgQouJPW9PGUGBpj2F9q9giWD3TxvNfClsFHvqd/pTSy8fn0ow/sl0iva1quRRuCRCn3dj2zZDgDCumH1ntjwunyjwu+MLj7XU3nHOHj8KTpU3iw",
+    "http://proxy.imageinstant.com/?data=2Hv+r/yrlf9bEKLtVo4L0O8sVQHfKj8JV/ctY0DYt/2Y2JzUr14smvZskmgaSqDuhME7zPbsq8QvcPNqaiPGM0Lp6genV06rPOVUQ6E9rQjkwmZI9PkQGKG6OxDMymy4Vi9b7DzlFaIqsKLCEDIk2Uo85K7mhYJbMhtR92fQtQSReqWb+dztwI6O7Ta4YZbm",
+    "http://proxy.imageinstant.com/?data=2Hv+r/yrlf9bEKLtVo4L0O8sVQHfKj8JV/ctY0DYt/2Y2JzUr14smvZskmgaSqDuf29C8ntfBIDTXFM8L3dDOH30oUNjFm5hg2ixajOMa1I11je2CZrl/17GdPoe0ys0iDFMlPHQTIIvJdlRoOVVKAYY/zO71I8OpNrSD1Hu8jOw/0CcVp5gvIBQVMM3Jd8C",
+    "http://proxy.imageinstant.com/?data=2Hv+r/yrlf9bEKLtVo4L0O8sVQHfKj8JV/ctY0DYt/2Y2JzUr14smvZskmgaSqDu7yiKncF0JJXWlhgRnl1Nc2kONVja8QJV4ErNSjMB4BwgOiMpz2mec34wTs6BMyw3sk5nxfxmQu2kCvf+tpugaab7RauhHQDwRO81n7ks2AXm3MMxeX/E+WFZ5EmPCfmO",
+    "http://proxy.imageinstant.com/?data=2Hv+r/yrlf9bEKLtVo4L0O8sVQHfKj8JV/ctY0DYt/2Y2JzUr14smvZskmgaSqDuMdOdV55W9MUzC49KXake2UdT5LBfn8I+4Y+LVsDNrLzi+qF16IHCUx8rmrvd8AQaE58E9GHAlC2PP5cSSwyUYpxhMrcd3/aPT8lwdDjMCdocSENacsNM981vJkY/gjn4",
+    "http://proxy.imageinstant.com/?data=2Hv+r/yrlf9bEKLtVo4L0O8sVQHfKj8JV/ctY0DYt/2Y2JzUr14smvZskmgaSqDuYib6/Vc+UXLYCPw8f/ICop/fqUyDa95xBBixkKADHDi4GMZM8fVGC7lL5ckZQFEUX+JVudT9+vBxdSU0BkIH3EVQYYzhh5qV0rUcPRU9lz3J1K9I8V8BNP1O+dV6vAkp"
+  ]
 };

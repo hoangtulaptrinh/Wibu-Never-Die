@@ -9,6 +9,8 @@ var mock = new MockAdapter(axios);
 mock.onGet("/category").reply(200, fakeData.category);
 mock.onGet("/manga").reply(200, fakeData.manga);
 mock.onPost("/log_in").reply(200, fakeData.log_in);
+mock.onGet("/image_manga").reply(200, fakeData.image_manga);
+
 export const getCategory = () => {
   return dispatch => {
     axios
@@ -60,6 +62,23 @@ export const logIn = data => {
 
 export const setCurrentUser = data => {
   return { type: actionTypes.setCurrentUser, data: data };
+};
+
+export const getImageManga = data => {
+  return dispatch => {
+    axios
+      .get("/image_manga", data)
+      .then(res => {
+        dispatch(setImageManga(res.data));
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+};
+
+export const setImageManga = data => {
+  return { type: actionTypes.setImageManga, data: data };
 };
 
 export const setTextMangaFilter = data => {

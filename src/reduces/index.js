@@ -4,12 +4,14 @@ import category from "./category";
 import manga from "./manga";
 import currentUser from "./currentUser";
 import textMangaFilter from "./textMangaFilter";
+import imageManga from "./imageManga";
 
 const myReducer = combineReducers({
   category,
   manga,
   currentUser,
-  textMangaFilter
+  textMangaFilter,
+  imageManga
 });
 
 export default myReducer;

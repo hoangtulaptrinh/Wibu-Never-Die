@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigation } from "react-navi";
 import { DragSource } from "react-dnd";
 import {
   Button,
@@ -43,6 +44,7 @@ const Manga = props => {
   const toggle = () => setModal(!modal);
   const { isDragging, connectDragSource } = props;
   const opacity = isDragging ? 0 : 1;
+  const { navigate } = useNavigation();
   return connectDragSource(
     <div>
       <MangaWrapper>
@@ -81,6 +83,7 @@ const Manga = props => {
                         style={{ width: "100px", marginBottom: "20px" }}
                         outline
                         color="success"
+                        onClick={() => navigate("/Wibu-Never-Die/Read-Manga")}
                       >
                         {item}
                       </Button>
