@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "4a5c71e7d4362c377b5bb4cefcb3c257",
+    "revision": "aec3a58f84df8e3a409f26f39f7d33b0",
     "url": "/Wibu-Never-Die/index.html"
   },
   {
-    "revision": "f22719359f6fadf4644f",
+    "revision": "e3b5becba4eced56e325",
     "url": "/Wibu-Never-Die/static/css/2.82caf9b5.chunk.css"
   },
   {
-    "revision": "3cc3ef2b3a97b0794eb4",
+    "revision": "efb0078fae4cf5e08409",
     "url": "/Wibu-Never-Die/static/css/main.5ecd60fb.chunk.css"
   },
   {
-    "revision": "f22719359f6fadf4644f",
-    "url": "/Wibu-Never-Die/static/js/2.60533092.chunk.js"
+    "revision": "e3b5becba4eced56e325",
+    "url": "/Wibu-Never-Die/static/js/2.033d053f.chunk.js"
   },
   {
-    "revision": "5a733b4f72d20e4afb54e249ef308592",
-    "url": "/Wibu-Never-Die/static/js/2.60533092.chunk.js.LICENSE.txt"
+    "revision": "9977bf38704f141c4689e42895f840fe",
+    "url": "/Wibu-Never-Die/static/js/2.033d053f.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "3cc3ef2b3a97b0794eb4",
-    "url": "/Wibu-Never-Die/static/js/main.b293633d.chunk.js"
+    "revision": "efb0078fae4cf5e08409",
+    "url": "/Wibu-Never-Die/static/js/main.e76215d0.chunk.js"
   },
   {
     "revision": "5aafc441da210540be8f",
