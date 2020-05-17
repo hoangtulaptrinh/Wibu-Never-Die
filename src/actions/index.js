@@ -12,75 +12,89 @@ mock.onPost("/log_in").reply(200, fakeData.log_in);
 mock.onGet("/image_manga").reply(200, fakeData.image_manga);
 
 export const getCategory = () => {
-  return dispatch => {
+  return (dispatch) => {
     axios
       .get("/category")
-      .then(res => {
+      .then((res) => {
         dispatch(setCATEGORY(res.data));
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   };
 };
 
-export const setCATEGORY = data => {
+export const setCATEGORY = (data) => {
   return { type: actionTypes.setCATEGORY, data: data };
 };
 
 export const getManga = () => {
-  return dispatch => {
+  return (dispatch) => {
     axios
       .get("/manga")
-      .then(res => {
+      .then((res) => {
         dispatch(setManga(res.data));
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   };
 };
 
-export const setManga = data => {
+export const setManga = (data) => {
   return { type: actionTypes.setManga, data: data };
 };
 
-export const logIn = data => {
-  return dispatch => {
+export const logIn = (data) => {
+  return (dispatch) => {
     axios
       .post("/log_in", data)
-      .then(res => {
+      .then((res) => {
         dispatch(setCurrentUser(res.data));
         toastSuccess("Đăng Nhập Thành Công");
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
         toastError(error);
       });
   };
 };
 
-export const setCurrentUser = data => {
+export const setCurrentUser = (data) => {
   return { type: actionTypes.setCurrentUser, data: data };
 };
 
-export const getImageManga = data => {
-  return dispatch => {
+export const getImageManga = (data) => {
+  return (dispatch) => {
     axios
       .get("/image_manga", data)
-      .then(res => {
+      .then((res) => {
         dispatch(setImageManga(res.data));
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   };
 };
 
-export const setImageManga = data => {
+export const createNewManga = (data) => {
+  return (dispatch) => {
+    console.log(data);
+    // axios
+    //   .get("/image_manga", data)
+    //   .then((res) => {
+    //     dispatch(setImageManga(res.data));
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+  };
+};
+
+export const setImageManga = (data) => {
   return { type: actionTypes.setImageManga, data: data };
 };
 
-export const setTextMangaFilter = data => {
+export const setTextMangaFilter = (data) => {
   return { type: actionTypes.setTextMangaFilter, data: data };
 };
