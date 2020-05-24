@@ -1,10 +1,12 @@
 import React from "react";
-import UpLoad from "./UpLoad/UpLoad";
+// import NewManga from "./NewManga/NewManga";
+import Upload from "./Upload/Upload";
 
 const Admin = () => {
   return (
     <div>
-      <UpLoad />
+      {/* <NewManga /> */}
+      <Upload />
     </div>
   );
 };

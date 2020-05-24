@@ -9,16 +9,25 @@ import {
   FormGroup,
   Label,
   Input,
+  Dropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
 } from "reactstrap";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 
 import * as actions from "../../../actions/index";
 
-const UpLoad = ({ createNewManga }) => {
+const NewManga = ({ createNewManga }) => {
   const [modal, setModal] = useState(false);
 
   const toggle = () => setModal(!modal);
+
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [the_loai_ht, set_the_loai_ht] = useState("all");
+
+  const toggle1 = () => setDropdownOpen((prevState) => !prevState);
 
   const formik = useFormik({
     initialValues: { cover: null, name: "", so_tap: "", title: "" },
@@ -34,11 +43,94 @@ const UpLoad = ({ createNewManga }) => {
     },
   });
 
+  const the_loai = [
+    {
+      id: 0,
+      name: "all",
+      amount: 30,
+    },
+    {
+      id: 1,
+      name: "horror",
+      amount: 3,
+    },
+    {
+      id: 2,
+      name: "detective",
+      amount: 4,
+    },
+    {
+      id: 3,
+      name: "action",
+      amount: 4,
+    },
+    {
+      id: 4,
+      name: "adult",
+      amount: 4,
+    },
+    {
+      id: 5,
+      name: "chanbara",
+      amount: 4,
+    },
+    {
+      id: 6,
+      name: "comedy",
+      amount: 4,
+    },
+    {
+      id: 7,
+      name: "parody",
+      amount: 4,
+    },
+    {
+      id: 8,
+      name: "doujinshi",
+      amount: 4,
+    },
+    {
+      id: 9,
+      name: "drama",
+      amount: 4,
+    },
+    {
+      id: 10,
+      name: "ecchi",
+      amount: 4,
+    },
+    {
+      id: 11,
+      name: "fantasy",
+      amount: 4,
+    },
+    {
+      id: 12,
+      name: "gekiga",
+      amount: 4,
+    },
+    {
+      id: 13,
+      name: "harem",
+      amount: 4,
+    },
+    {
+      id: 14,
+      name: "mature",
+      amount: 4,
+    },
+    {
+      id: 15,
+      name: "omake",
+      amount: 4,
+    },
+  ];
+
   return (
     <div>
       <div>
         <Button color="success" onClick={toggle}>
-          UpLoad
+          NewManga
         </Button>
         <Modal isOpen={modal} toggle={toggle}>
           <form onSubmit={formik.handleSubmit}>
@@ -49,14 +141,21 @@ const UpLoad = ({ createNewManga }) => {
                 <Input
                   type="file"
                   name="cover"
-                  onChange={formik.handleChange}
+                  onChange={(event) =>
+                    formik.setFieldValue(
+                      "cover",
+                      URL.createObjectURL(event.target.files[0])
+                    )
+                  }
                   onBlur={formik.handleBlur}
-                  value={formik.values.cover}
                 />
                 {formik.touched.cover && formik.errors.cover ? (
                   <div style={{ color: "red" }}>{formik.errors.cover}</div>
                 ) : null}
               </FormGroup>
+              {!!formik.touched.cover && (
+                <img src={formik.values.cover} alt="img-cover" height={150} />
+              )}
               <FormGroup>
                 <Label for="exampleEmail">Tên Truyện</Label>
                 <Input
@@ -70,6 +169,21 @@ const UpLoad = ({ createNewManga }) => {
                 {formik.touched.name && formik.errors.name ? (
                   <div style={{ color: "red" }}>{formik.errors.name}</div>
                 ) : null}
+              </FormGroup>
+              <FormGroup>
+                <Dropdown isOpen={dropdownOpen} toggle={toggle1}>
+                  <DropdownToggle caret>
+                    {the_loai_ht === "all" && "Chọn Thể Loại"}
+                    {the_loai_ht !== "all" && the_loai_ht}
+                  </DropdownToggle>
+                  <DropdownMenu>
+                    {the_loai.map((item, index) => (
+                      <DropdownItem onClick={() => set_the_loai_ht(item.name)}>
+                        {item.name}
+                      </DropdownItem>
+                    ))}
+                  </DropdownMenu>
+                </Dropdown>
               </FormGroup>
               <FormGroup>
                 <Label for="exampleEmail">Số Tập</Label>
@@ -126,4 +240,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStatetoProps, mapDispatchToProps)(UpLoad);
+export default connect(mapStatetoProps, mapDispatchToProps)(NewManga);
