@@ -3,5 +3,6 @@ export default {
   setManga: "SET_MANGA",
   setCurrentUser: "SET_CURRENT_USER",
   setImageManga: "SET_IMAGE_MANGA",
-  setTextMangaFilter: "SET_TEXT_MANGA_FILTER"
+  setTextMangaFilter: "SET_TEXT_MANGA_FILTER",
+  setCreateNewManga: "SET_CREATE_MANGA",
 };
