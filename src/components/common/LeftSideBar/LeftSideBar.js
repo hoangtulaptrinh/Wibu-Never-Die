@@ -8,15 +8,14 @@ import {
   ModalFooter,
   FormGroup,
   Label,
-  Input
+  Input,
 } from "reactstrap";
-import { LogIn, LogOut } from "react-feather";
-import classNames from "classnames";
 import { connect } from "react-redux";
-import * as Yup from "yup";
+import { LogIn, LogOut, Heart, UserCheck } from "react-feather";
 import { useFormik } from "formik";
+import * as Yup from "yup";
+import classNames from "classnames";
 import isEmpty from "lodash/isEmpty";
-import { Heart } from "react-feather";
 
 import * as actions from "../../../actions/index";
 import LeftSideBarWrapper from "./LeftSideBar.style";
@@ -27,50 +26,46 @@ const LeftSideBar = ({
   currentUser,
   setCurrentUser,
   logIn,
-  setTextMangaFilter
+  setTextMangaFilter,
 }) => {
   const { navigate } = useNavigation();
   const [searchText, setSearchText] = useState("");
   const listCategory = useMemo(
     () =>
-      category.filter(item =>
+      category.filter((item) =>
         item.name.toLowerCase().includes(searchText.toLowerCase())
       ),
     [category, searchText]
   );
   const [currentCategoryMouseDown, setCurrentCategoryMouseDown] = useState(-1);
   const [currentCategoryOnClick, setCurrentCategoryOnClick] = useState(-1);
-  const onClickCategory = id => {
+  const onClickCategory = (id) => {
     setCurrentCategoryOnClick(id);
   };
   useEffect(() => {
     getCategory();
     // eslint-disable-next-line
   }, []);
+
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
   const formik = useFormik({
     initialValues: { email: "", password: "" },
     validationSchema: Yup.object({
-      email: Yup.string()
-        .email()
-        .required(),
-      password: Yup.string()
-        .min(8)
-        .max(15)
-        .required()
+      email: Yup.string().email().required(),
+      password: Yup.string().min(8).max(15).required(),
     }),
-    onSubmit: values => {
+    onSubmit: (values) => {
       logIn(values);
       toggle();
-    }
+    },
   });
   const [filterType, setFilterType] = useState("Category");
   const changeFilterType = () => {
     if (filterType === "Category") return setFilterType("Manga");
     return setFilterType("Category");
   };
-  const letSetSearchText = value => {
+  const letSetSearchText = (value) => {
     if (filterType === "Category") return setSearchText(value);
     return setTextMangaFilter(value);
   };
@@ -79,6 +74,17 @@ const LeftSideBar = ({
     setCurrentUser({});
     navigate("/Wibu-Never-Die");
   };
+
+  const role = () => {
+    if (
+      !!localStorage.currentUser &&
+      !isEmpty(JSON.parse(localStorage.currentUser))
+    ) {
+      return JSON.parse(localStorage.currentUser).role === "admin";
+    }
+    return false;
+  };
+
   return (
     <LeftSideBarWrapper>
       <div className="left-side-bar">
@@ -110,7 +116,7 @@ const LeftSideBar = ({
               <input
                 className="search-circle"
                 type="text"
-                onChange={e => letSetSearchText(e.target.value)}
+                onChange={(e) => letSetSearchText(e.target.value)}
               />
               <div className="search-bar" />
             </div>
@@ -121,7 +127,7 @@ const LeftSideBar = ({
             <div
               className={classNames("category cursor", {
                 categorySelected: currentCategoryOnClick === category.id,
-                removeHover: currentCategoryMouseDown === category.id
+                removeHover: currentCategoryMouseDown === category.id,
               })}
               key={index}
               onClick={() => onClickCategory(category.id)}
@@ -132,12 +138,20 @@ const LeftSideBar = ({
           ))}
         </div>
         <div className="log-in-log-out">
-          {localStorage.currentUser === undefined && (
+          {!localStorage.currentUser && (
             <LogIn
               className="e-resize"
               size="50"
               color="#00a8cc"
               onClick={toggle}
+            />
+          )}
+          {role() && (
+            <UserCheck
+              className="e-resize"
+              size="50"
+              color="#00a8cc"
+              onClick={() => navigate("/Wibu-Never-Die/Admin")}
             />
           )}
           <LogOut
@@ -201,27 +215,27 @@ const LeftSideBar = ({
   );
 };
 
-const mapStatetoProps = state => {
+const mapStatetoProps = (state) => {
   return {
     category: state.category,
     currentUser: state.currentUser,
-    filterType: state.filterType
+    filterType: state.filterType,
   };
 };
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    getCategory: data => {
+    getCategory: (data) => {
       dispatch(actions.getCategory(data));
     },
-    logIn: data => {
+    logIn: (data) => {
       dispatch(actions.logIn(data));
     },
-    setTextMangaFilter: data => {
+    setTextMangaFilter: (data) => {
       dispatch(actions.setTextMangaFilter(data));
     },
-    setCurrentUser: data => {
+    setCurrentUser: (data) => {
       dispatch(actions.setCurrentUser(data));
-    }
+    },
   };
 };
 
