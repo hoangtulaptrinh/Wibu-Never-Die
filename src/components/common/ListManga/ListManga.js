@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { Row, Col } from "reactstrap";
 import { connect } from "react-redux";
-import find from "lodash/find";
+import { Row, Col } from "reactstrap";
 import { useCurrentRoute } from "react-navi";
+import axios from "axios";
+import find from "lodash/find";
 
 import Manga from "./Manga";
 import FavoritesList from "../FavoritesList";
@@ -11,7 +12,7 @@ import * as actions from "../../../actions/index";
 import {
   toastSuccess,
   toastError,
-  toastWarning
+  toastWarning,
 } from "../../../Helper/ToastHelper";
 
 import HeartGif from "../../../asses/image/HeartGif.gif";
@@ -21,34 +22,63 @@ const ListManga = ({ manga, getManga, currentUser, textMangaFilter }) => {
   const currentRoute = useCurrentRoute().url.pathname;
   const [showFavoritesList, setShowFavoritesList] = useState(false);
   const [hoverFavoritesList, setHoverFavoritesList] = useState(false);
+  const [arrayFavoriteList, setArrayFavoriteList] = useState([]);
   useEffect(() => {
     getManga();
+    axios
+      .get("/manga")
+      .then((res) => setArrayFavoriteList([1, 2, 3, 4, 5]))
+      .catch((err) => console.log(err));
     // eslint-disable-next-line
   }, []);
-  const addToFavoritesList = id => {
+  const addToFavoritesList = (id) => {
+    if (currentRoute === "/Wibu-Never-Die") {
+      toastSuccess(
+        `Đã Thêm ${
+          find(manga, (item) => item.id === id).name
+        } Vào Danh Sách Yêu Thích`
+      );
+      toastError(
+        `${
+          find(manga, (item) => item.id === id).name
+        } Đã Có Trong Vào Danh Sách Yêu Thích`
+      );
+      toastWarning(
+        `${
+          find(manga, (item) => item.id === id).name
+        } Đã Có Trong Vào Danh Sách Yêu Thích`
+      );
+      return;
+    }
     toastSuccess(
-      `Đã Thêm ${
-        find(manga, item => item.id === id).name
-      } Vào Danh Sách Yêu Thích`
+      `Đã Bỏ ${
+        find(manga, (item) => item.id === id).name
+      } Ra Khỏi Danh Sách Yêu Thích`
     );
     toastError(
       `${
-        find(manga, item => item.id === id).name
-      } Đã Có Trong Vào Danh Sách Yêu Thích`
+        find(manga, (item) => item.id === id).name
+      } Không Có Trong Danh Sách Yêu Thích`
     );
     toastWarning(
       `${
-        find(manga, item => item.id === id).name
-      } Đã Có Trong Vào Danh Sách Yêu Thích`
+        find(manga, (item) => item.id === id).name
+      } Không Có Trong Danh Sách Yêu Thích`
     );
   };
-  const listManga = useMemo(
-    () =>
-      manga.filter(item =>
+  const listManga = useMemo(() => {
+    console.log(manga);
+    if (currentRoute === "/Wibu-Never-Die") {
+      return manga.filter((item) =>
         item.name.toLowerCase().includes(textMangaFilter.toLowerCase())
-      ),
-    [manga, textMangaFilter]
-  );
+      );
+    }
+    return manga.filter(
+      (item) =>
+        item.name.toLowerCase().includes(textMangaFilter.toLowerCase()) &&
+        arrayFavoriteList.includes(item.id)
+    );
+  }, [arrayFavoriteList, currentRoute, manga, textMangaFilter]);
   return (
     <ListMangaWrapper>
       <div className="list-manga">
@@ -65,7 +95,7 @@ const ListManga = ({ manga, getManga, currentUser, textMangaFilter }) => {
                   : ""
               })`,
               filter: "blur(0px)",
-              WebkitFilter: "blur(0px)"
+              WebkitFilter: "blur(0px)",
             }}
           />
         )}
@@ -84,7 +114,7 @@ const ListManga = ({ manga, getManga, currentUser, textMangaFilter }) => {
               </Col>
             ))}
           </Row>
-          {!!currentUser.id && showFavoritesList && (
+          {localStorage.currentUser !== undefined && showFavoritesList && (
             <FavoritesList setHoverFavoritesList={setHoverFavoritesList} />
           )}
         </div>
@@ -93,18 +123,18 @@ const ListManga = ({ manga, getManga, currentUser, textMangaFilter }) => {
   );
 };
 
-const mapStatetoProps = state => {
+const mapStatetoProps = (state) => {
   return {
     manga: state.manga,
     currentUser: state.currentUser,
-    textMangaFilter: state.textMangaFilter
+    textMangaFilter: state.textMangaFilter,
   };
 };
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    getManga: data => {
+    getManga: (data) => {
       dispatch(actions.getManga(data));
-    }
+    },
   };
 };
 

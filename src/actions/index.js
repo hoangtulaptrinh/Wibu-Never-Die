@@ -65,6 +65,7 @@ export const setCurrentUser = (data) => {
 };
 
 export const getImageManga = (data) => {
+  console.log(data);
   return (dispatch) => {
     axios
       .get("/image_manga", data)

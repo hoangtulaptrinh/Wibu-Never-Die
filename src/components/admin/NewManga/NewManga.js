@@ -19,7 +19,7 @@ import { useFormik } from "formik";
 
 import * as actions from "../../../actions/index";
 
-const NewManga = ({ createNewManga, setIsUpload, statusCreateNewManga }) => {
+const NewManga = ({ createNewManga, setScreen, statusCreateNewManga }) => {
   const [modal, setModal] = useState(false);
 
   const toggle = () => setModal(!modal);
@@ -126,15 +126,26 @@ const NewManga = ({ createNewManga, setIsUpload, statusCreateNewManga }) => {
   ];
 
   useEffect(() => {
-    statusCreateNewManga && setIsUpload(true);
-  }, [setIsUpload, statusCreateNewManga]);
+    statusCreateNewManga && setScreen("upload");
+  }, [setScreen, statusCreateNewManga]);
 
   return (
     <div>
-      <div>
-        <Button color="success" onClick={toggle}>
-          NewManga
-        </Button>
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-evenly",
+            width: 800,
+          }}
+        >
+          <Button color="success" onClick={toggle}>
+            NewManga
+          </Button>
+          <Button color="primary" onClick={() => setScreen("edit")}>
+            EditManga
+          </Button>
+        </div>
         <Modal isOpen={modal} toggle={toggle}>
           <form onSubmit={formik.handleSubmit}>
             <ModalHeader toggle={toggle}>Tạo Mới Truyện</ModalHeader>
@@ -150,11 +161,11 @@ const NewManga = ({ createNewManga, setIsUpload, statusCreateNewManga }) => {
                   }}
                   onBlur={formik.handleBlur}
                 />
-                {formik.touched.cover && formik.errors.cover ? (
+                {formik.touched.cover && !priview ? (
                   <div style={{ color: "red" }}>{formik.errors.cover}</div>
                 ) : null}
               </FormGroup>
-              {!!formik.touched.cover && (
+              {!!formik.touched.cover && !!priview && (
                 <img src={priview} alt="img-cover" height={150} />
               )}
               <FormGroup>

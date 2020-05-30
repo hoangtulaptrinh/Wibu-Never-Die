@@ -20,6 +20,11 @@ const MangaWrapper = styled.div`
         color: white;
       }
     }
+    .no-transition {
+      img:hover {
+        transform: none;
+      }
+    }
   }
 `;
 

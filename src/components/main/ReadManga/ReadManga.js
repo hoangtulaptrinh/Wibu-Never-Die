@@ -6,7 +6,7 @@ import {
   Dropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem
+  DropdownItem,
 } from "reactstrap";
 
 import * as actions from "../../../actions/index";
@@ -16,11 +16,19 @@ const ReadManga = ({ imageManga, getImageManga }) => {
   const { navigate } = useNavigation();
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  const toggle = () => setDropdownOpen(prevState => !prevState);
+  const toggle = () => setDropdownOpen((prevState) => !prevState);
+
+  const urlParam = new URLSearchParams(window.location.search);
+  console.log();
+
   useEffect(() => {
-    getImageManga();
+    getImageManga({
+      id: urlParam.get("id"),
+      episodes: urlParam.get("episodes"),
+    });
     // eslint-disable-next-line
   }, []);
+
   return (
     <ReadMangaWrapper>
       <div className="read-manga" id="read-manga-scroll">
@@ -68,16 +76,16 @@ const ReadManga = ({ imageManga, getImageManga }) => {
   );
 };
 
-const mapStatetoProps = state => {
+const mapStatetoProps = (state) => {
   return {
-    imageManga: state.imageManga
+    imageManga: state.imageManga,
   };
 };
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    getImageManga: data => {
+    getImageManga: (data) => {
       dispatch(actions.getImageManga(data));
-    }
+    },
   };
 };
 

@@ -40,6 +40,7 @@ const Upload = () => {
     for (let i = 0; i < files.length; i++) {
       formData.append(`images[${i}]`, files[i]);
     }
+    formData.append("chapter", chapter);
     axios
       .post("/log_in", formData)
       .then((res) => console.log(res))

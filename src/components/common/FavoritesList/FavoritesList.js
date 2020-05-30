@@ -9,7 +9,7 @@ const collect = (connect, monitor) => {
   return {
     connectDropTarget: connect.dropTarget(),
     hovered: monitor.isOver(),
-    item: monitor.getItem()
+    item: monitor.getItem(),
   };
 };
 
@@ -19,10 +19,10 @@ const canDropTheTarget = {
       return;
     }
     return;
-  }
+  },
 };
 
-const FavoritesList = props => {
+const FavoritesList = (props) => {
   const currentRoute = useCurrentRoute().url.pathname;
   const { connectDropTarget, hovered } = props;
   const backgroundColor = hovered ? "" : "";

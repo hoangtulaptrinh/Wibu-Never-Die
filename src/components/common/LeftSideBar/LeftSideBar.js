@@ -1,5 +1,7 @@
 import React, { useState, useMemo, useEffect } from "react";
-import { useNavigation } from "react-navi";
+import { useNavigation, useCurrentRoute } from "react-navi";
+import { toastSuccess, toastError } from "../../../Helper/ToastHelper";
+import axios from "axios";
 import {
   Button,
   Modal,
@@ -49,11 +51,20 @@ const LeftSideBar = ({
 
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
+
+  const [modal1, setModal1] = useState(false);
+  const toggle1 = () => setModal1(!modal1);
+
   const formik = useFormik({
     initialValues: { email: "", password: "" },
     validationSchema: Yup.object({
-      email: Yup.string().email().required(),
-      password: Yup.string().min(8).max(15).required(),
+      email: Yup.string()
+        .email("không đúng định dạng mail")
+        .required("hãy điền mail của bạn"),
+      password: Yup.string()
+        .min(8)
+        .max(15)
+        .required("hãy nhập mật khẩu của bạn"),
     }),
     onSubmit: (values) => {
       logIn(values);
@@ -84,7 +95,39 @@ const LeftSideBar = ({
     }
     return false;
   };
-
+  const currentRoute = useCurrentRoute().url.pathname;
+  const signUp = () => {
+    toggle();
+    toggle1();
+  };
+  const formikSignUp = useFormik({
+    initialValues: { name: "", email: "", password: "", passwordRepeat: "" },
+    validationSchema: Yup.object({
+      name: Yup.string().required("Hãy điền tên của bạn"),
+      email: Yup.string().email().required("Hãy điền email của bạn"),
+      password: Yup.string()
+        .min(8)
+        .max(15)
+        .required("Hãy điền mật khẩu của bạn"),
+      passwordRepeat: Yup.string()
+        .min(8)
+        .max(15)
+        .required("hãy nhập lại mật khẩu của bạn 1 lần nữa")
+        .oneOf(
+          [Yup.ref("password"), null],
+          "mật khẩu không trùng với mật khẩu ở trên"
+        ),
+    }),
+    onSubmit: (values) => {
+      axios
+        .post("/log_in", values)
+        .then((res) => {
+          toastSuccess("Bạn Đã Đăng Ký Thành Công Hãy Đăng Nhập Đi");
+          toggle1();
+        })
+        .catch((err) => toastError(err));
+    },
+  });
   return (
     <LeftSideBarWrapper>
       <div className="left-side-bar">
@@ -102,14 +145,15 @@ const LeftSideBar = ({
               <span className="switch-left">MA</span>
               <span className="switch-right">CA</span>
             </label>
-            {localStorage.currentUser !== undefined && (
-              <Heart
-                size="50"
-                color="pink"
-                className="cursor"
-                onClick={() => navigate("/Wibu-Never-Die/Favorites-Page")}
-              />
-            )}
+            {localStorage.currentUser !== undefined &&
+              currentRoute !== "/Wibu-Never-Die/Favorites-Page" && (
+                <Heart
+                  size="50"
+                  color="pink"
+                  className="cursor"
+                  onClick={() => navigate("/Wibu-Never-Die/Favorites-Page")}
+                />
+              )}
           </div>
           <div className="wrapper">
             <div className="search-icon">
@@ -199,13 +243,98 @@ const LeftSideBar = ({
             <ModalFooter>
               <Button
                 disabled={!isEmpty(formik.errors)}
-                color="primary"
+                color="success"
                 type="submit"
               >
                 Đăng Nhập
               </Button>
-              <Button color="secondary" onClick={toggle}>
-                Lúc Khác
+              <Button color="primary" onClick={signUp}>
+                Đăng Ký
+              </Button>
+            </ModalFooter>
+          </form>
+        </Modal>
+
+        <Modal isOpen={modal1} toggle={toggle1}>
+          <form onSubmit={formikSignUp.handleSubmit}>
+            <ModalHeader toggle={toggle1}>Log In</ModalHeader>
+            <ModalBody>
+              <FormGroup>
+                <Label for="exampleName">Name</Label>
+                <Input
+                  type="name"
+                  name="name"
+                  id="name"
+                  placeholder="Your Name"
+                  onChange={formikSignUp.handleChange}
+                  onBlur={formikSignUp.handleBlur}
+                  value={formikSignUp.values.name}
+                />
+                {formikSignUp.touched.name && formikSignUp.errors.name ? (
+                  <div style={{ color: "red" }}>{formikSignUp.errors.name}</div>
+                ) : null}
+              </FormGroup>
+              <FormGroup>
+                <Label for="exampleEmail">Email</Label>
+                <Input
+                  type="email"
+                  name="email"
+                  id="email"
+                  placeholder="Your Email"
+                  onChange={formikSignUp.handleChange}
+                  onBlur={formikSignUp.handleBlur}
+                  value={formikSignUp.values.email}
+                />
+                {formikSignUp.touched.email && formikSignUp.errors.email ? (
+                  <div style={{ color: "red" }}>
+                    {formikSignUp.errors.email}
+                  </div>
+                ) : null}
+              </FormGroup>
+              <FormGroup>
+                <Label for="examplePassword">Password</Label>
+                <Input
+                  type="password"
+                  name="password"
+                  id="password"
+                  placeholder="Your Password"
+                  onChange={formikSignUp.handleChange}
+                  onBlur={formikSignUp.handleBlur}
+                  value={formikSignUp.values.password}
+                />
+                {formikSignUp.touched.password &&
+                formikSignUp.errors.password ? (
+                  <div style={{ color: "red" }}>
+                    {formikSignUp.errors.password}
+                  </div>
+                ) : null}
+              </FormGroup>
+              <FormGroup>
+                <Label for="example Password Repeat">Password Repeat</Label>
+                <Input
+                  type="passwordRepeat"
+                  name="passwordRepeat"
+                  id="passwordRepeat"
+                  placeholder="Your Password Repeat"
+                  onChange={formikSignUp.handleChange}
+                  onBlur={formikSignUp.handleBlur}
+                  value={formikSignUp.values.passwordRepeat}
+                />
+                {formikSignUp.touched.passwordRepeat &&
+                formikSignUp.errors.passwordRepeat ? (
+                  <div style={{ color: "red" }}>
+                    {formikSignUp.errors.passwordRepeat}
+                  </div>
+                ) : null}
+              </FormGroup>
+            </ModalBody>
+            <ModalFooter>
+              <Button
+                disabled={!isEmpty(formikSignUp.errors)}
+                color="success"
+                type="submit"
+              >
+                Đăng Ký
               </Button>
             </ModalFooter>
           </form>
