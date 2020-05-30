@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import {
   Button,
@@ -19,22 +19,21 @@ import { useFormik } from "formik";
 
 import * as actions from "../../../actions/index";
 
-const NewManga = ({ createNewManga }) => {
+const NewManga = ({ createNewManga, setIsUpload, statusCreateNewManga }) => {
   const [modal, setModal] = useState(false);
 
   const toggle = () => setModal(!modal);
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [the_loai_ht, set_the_loai_ht] = useState("all");
-
+  const [priview, setPriview] = useState(null);
   const toggle1 = () => setDropdownOpen((prevState) => !prevState);
 
   const formik = useFormik({
-    initialValues: { cover: null, name: "", so_tap: "", title: "" },
+    initialValues: { cover: null, name: "", title: "" },
     validationSchema: Yup.object({
       cover: Yup.mixed().required("hãy thêm bìa truyện"),
       name: Yup.string().required("hãy nhập tên truyện"),
-      so_tap: Yup.string().required("hãy nhập số truyện"),
       title: Yup.string().required("hãy nhập nội dung truyện"),
     }),
     onSubmit: (values) => {
@@ -126,6 +125,10 @@ const NewManga = ({ createNewManga }) => {
     },
   ];
 
+  useEffect(() => {
+    statusCreateNewManga && setIsUpload(true);
+  }, [setIsUpload, statusCreateNewManga]);
+
   return (
     <div>
       <div>
@@ -141,12 +144,10 @@ const NewManga = ({ createNewManga }) => {
                 <Input
                   type="file"
                   name="cover"
-                  onChange={(event) =>
-                    formik.setFieldValue(
-                      "cover",
-                      URL.createObjectURL(event.target.files[0])
-                    )
-                  }
+                  onChange={(event) => {
+                    formik.setFieldValue("cover", event.target.files[0]);
+                    setPriview(URL.createObjectURL(event.target.files[0]));
+                  }}
                   onBlur={formik.handleBlur}
                 />
                 {formik.touched.cover && formik.errors.cover ? (
@@ -154,7 +155,7 @@ const NewManga = ({ createNewManga }) => {
                 ) : null}
               </FormGroup>
               {!!formik.touched.cover && (
-                <img src={formik.values.cover} alt="img-cover" height={150} />
+                <img src={priview} alt="img-cover" height={150} />
               )}
               <FormGroup>
                 <Label for="exampleEmail">Tên Truyện</Label>
@@ -184,20 +185,6 @@ const NewManga = ({ createNewManga }) => {
                     ))}
                   </DropdownMenu>
                 </Dropdown>
-              </FormGroup>
-              <FormGroup>
-                <Label for="exampleEmail">Số Tập</Label>
-                <Input
-                  type="text"
-                  name="so_tap"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.so_tap}
-                  placeholder="Truyện Của Bạn Có Bao Nhiêu Tập"
-                />
-                {formik.touched.so_tap && formik.errors.so_tap ? (
-                  <div style={{ color: "red" }}>{formik.errors.so_tap}</div>
-                ) : null}
               </FormGroup>
               <FormGroup>
                 <Label for="exampleText">Giới Thiệu Về Truyện</Label>
@@ -230,7 +217,9 @@ const NewManga = ({ createNewManga }) => {
 };
 
 const mapStatetoProps = (state) => {
-  return {};
+  return {
+    statusCreateNewManga: state.statusCreateNewManga,
+  };
 };
 const mapDispatchToProps = (dispatch) => {
   return {

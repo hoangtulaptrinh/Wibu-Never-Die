@@ -80,15 +80,19 @@ export const getImageManga = (data) => {
 export const createNewManga = (data) => {
   return (dispatch) => {
     console.log(data);
-    // axios
-    //   .get("/image_manga", data)
-    //   .then((res) => {
-    //     dispatch(setImageManga(res.data));
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
+    axios
+      .get("/image_manga", data)
+      .then((res) => {
+        dispatch(setCreateNewManga(true));
+      })
+      .catch((error) => {
+        dispatch(setCreateNewManga(false));
+      });
   };
+};
+
+export const setCreateNewManga = (data) => {
+  return { type: actionTypes.setCreateNewManga, data: data };
 };
 
 export const setImageManga = (data) => {
