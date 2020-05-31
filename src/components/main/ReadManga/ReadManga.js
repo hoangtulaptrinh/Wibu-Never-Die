@@ -14,21 +14,20 @@ import ReadMangaWrapper from "./ReadManga.style";
 
 const ReadManga = ({ imageManga, getImageManga }) => {
   const { navigate } = useNavigation();
+  const urlParam = new URLSearchParams(window.location.search);
+  const [currentEpisodes, setCurrentEpisodes] = useState(urlParam.get("id"));
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const toggle = () => setDropdownOpen((prevState) => !prevState);
 
-  const urlParam = new URLSearchParams(window.location.search);
-  console.log();
-
   useEffect(() => {
     getImageManga({
-      id: urlParam.get("id"),
+      id: currentEpisodes,
       episodes: urlParam.get("episodes"),
     });
     // eslint-disable-next-line
   }, []);
-
+  console.log(currentEpisodes);
   return (
     <ReadMangaWrapper>
       <div className="read-manga" id="read-manga-scroll">

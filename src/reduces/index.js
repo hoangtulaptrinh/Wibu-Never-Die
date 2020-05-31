@@ -1,19 +1,21 @@
 import { combineReducers } from "redux";
 
 import category from "./category";
-import manga from "./manga";
 import currentUser from "./currentUser";
-import textMangaFilter from "./textMangaFilter";
 import imageManga from "./imageManga";
+import manga from "./manga";
 import statusCreateNewManga from "./statusCreateNewManga";
+import textCategoryFilter from "./textCategoryFilter";
+import textMangaFilter from "./textMangaFilter";
 
 const myReducer = combineReducers({
   category,
-  manga,
   currentUser,
-  textMangaFilter,
   imageManga,
+  manga,
   statusCreateNewManga,
+  textCategoryFilter,
+  textMangaFilter,
 });
 
 export default myReducer;

@@ -2,6 +2,7 @@ import React, { useState, useMemo, useEffect } from "react";
 import { useNavigation, useCurrentRoute } from "react-navi";
 import { toastSuccess, toastError } from "../../../Helper/ToastHelper";
 import axios from "axios";
+import fakeData from "../../../fakeData";
 import {
   Button,
   Modal,
@@ -23,32 +24,30 @@ import * as actions from "../../../actions/index";
 import LeftSideBarWrapper from "./LeftSideBar.style";
 
 const LeftSideBar = ({
-  category,
-  getCategory,
-  currentUser,
+  manga,
   setCurrentUser,
   logIn,
   setTextMangaFilter,
+  setTextCategoryFilter,
 }) => {
   const { navigate } = useNavigation();
   const [searchText, setSearchText] = useState("");
-  const listCategory = useMemo(
-    () =>
-      category.filter((item) =>
-        item.name.toLowerCase().includes(searchText.toLowerCase())
-      ),
-    [category, searchText]
-  );
+
   const [currentCategoryMouseDown, setCurrentCategoryMouseDown] = useState(-1);
   const [currentCategoryOnClick, setCurrentCategoryOnClick] = useState(-1);
-  const onClickCategory = (id) => {
+  const [arrayFavoriteList, setArrayFavoriteList] = useState([]);
+  const onClickCategory = (id, name) => {
     setCurrentCategoryOnClick(id);
+    setTextCategoryFilter(name);
   };
   useEffect(() => {
-    getCategory();
+    axios
+      .get("/manga")
+      .then((res) => setArrayFavoriteList([1, 2, 3, 4, 5]))
+      .catch((err) => console.log(err));
     // eslint-disable-next-line
   }, []);
-
+  console.log(searchText);
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
 
@@ -77,7 +76,10 @@ const LeftSideBar = ({
     return setFilterType("Category");
   };
   const letSetSearchText = (value) => {
-    if (filterType === "Category") return setSearchText(value);
+    if (filterType === "Category") {
+      setSearchText(value);
+      return;
+    }
     return setTextMangaFilter(value);
   };
   const letLogOut = () => {
@@ -128,6 +130,50 @@ const LeftSideBar = ({
         .catch((err) => toastError(err));
     },
   });
+
+  // const currentUser1 = localStorage.currentUser;
+  // const token =
+  //   !!currentUser1 &&
+  //   !isEmpty(JSON.parse(currentUser1)) &&
+  //   JSON.parse(currentUser1).token;
+  // console.log(token);
+  // console.log(fakeData.category, manga);
+  const category = fakeData.category;
+  const mapCategory = useMemo(() => {
+    if (currentRoute === "/Wibu-Never-Die") {
+      return manga.map((item) => item.category);
+    }
+    return manga
+      .filter((manga) => arrayFavoriteList.includes(manga.id))
+      .map((item) => item.category);
+  }, [arrayFavoriteList, currentRoute, manga]);
+
+  const updateListCategory = useMemo(
+    () =>
+      category.map((item) => {
+        if (mapCategory.includes(item.name)) {
+          return {
+            ...item,
+            amount: mapCategory.filter((category) => category === item.name)
+              .length,
+          };
+        }
+        return {
+          ...item,
+          amount: 0,
+        };
+      }),
+    [category, mapCategory]
+  );
+
+  const listCategory = useMemo(
+    () =>
+      updateListCategory.filter((item) =>
+        item.name.toLowerCase().includes(searchText.toLowerCase())
+      ),
+    [searchText, updateListCategory]
+  );
+
   return (
     <LeftSideBarWrapper>
       <div className="left-side-bar">
@@ -174,7 +220,7 @@ const LeftSideBar = ({
                 removeHover: currentCategoryMouseDown === category.id,
               })}
               key={index}
-              onClick={() => onClickCategory(category.id)}
+              onClick={() => onClickCategory(category.id, category.name)}
               onMouseDown={() => setCurrentCategoryMouseDown(category.id)}
             >
               {`${category.name} (${category.amount})`}
@@ -346,6 +392,7 @@ const LeftSideBar = ({
 
 const mapStatetoProps = (state) => {
   return {
+    manga: state.manga,
     category: state.category,
     currentUser: state.currentUser,
     filterType: state.filterType,
@@ -353,9 +400,6 @@ const mapStatetoProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    getCategory: (data) => {
-      dispatch(actions.getCategory(data));
-    },
     logIn: (data) => {
       dispatch(actions.logIn(data));
     },
@@ -364,6 +408,12 @@ const mapDispatchToProps = (dispatch) => {
     },
     setCurrentUser: (data) => {
       dispatch(actions.setCurrentUser(data));
+    },
+    setTextCategoryFilter: (data) => {
+      dispatch(actions.setTextCategoryFilter(data));
+    },
+    getManga: (data) => {
+      dispatch(actions.getManga(data));
     },
   };
 };

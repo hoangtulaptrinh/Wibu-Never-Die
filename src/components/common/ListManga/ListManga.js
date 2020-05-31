@@ -18,7 +18,12 @@ import {
 import HeartGif from "../../../asses/image/HeartGif.gif";
 import CryGif from "../../../asses/image/CryGif.gif";
 
-const ListManga = ({ manga, getManga, currentUser, textMangaFilter }) => {
+const ListManga = ({
+  manga,
+  getManga,
+  textMangaFilter,
+  textCategoryFilter,
+}) => {
   const currentRoute = useCurrentRoute().url.pathname;
   const [showFavoritesList, setShowFavoritesList] = useState(false);
   const [hoverFavoritesList, setHoverFavoritesList] = useState(false);
@@ -67,18 +72,28 @@ const ListManga = ({ manga, getManga, currentUser, textMangaFilter }) => {
     );
   };
   const listManga = useMemo(() => {
-    console.log(manga);
     if (currentRoute === "/Wibu-Never-Die") {
-      return manga.filter((item) =>
-        item.name.toLowerCase().includes(textMangaFilter.toLowerCase())
+      return manga.filter(
+        (item) =>
+          item.name.toLowerCase().includes(textMangaFilter.toLowerCase()) &&
+          item.category.includes(textCategoryFilter.toLowerCase())
       );
     }
     return manga.filter(
       (item) =>
         item.name.toLowerCase().includes(textMangaFilter.toLowerCase()) &&
+        item.category.includes(textCategoryFilter.toLowerCase()) &&
         arrayFavoriteList.includes(item.id)
     );
-  }, [arrayFavoriteList, currentRoute, manga, textMangaFilter]);
+  }, [
+    arrayFavoriteList,
+    currentRoute,
+    manga,
+    textCategoryFilter,
+    textMangaFilter,
+  ]);
+
+  console.log();
   return (
     <ListMangaWrapper>
       <div className="list-manga">
@@ -126,8 +141,8 @@ const ListManga = ({ manga, getManga, currentUser, textMangaFilter }) => {
 const mapStatetoProps = (state) => {
   return {
     manga: state.manga,
-    currentUser: state.currentUser,
     textMangaFilter: state.textMangaFilter,
+    textCategoryFilter: state.textCategoryFilter,
   };
 };
 const mapDispatchToProps = (dispatch) => {

@@ -46,6 +46,7 @@ const Upload = () => {
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   };
+
   return (
     <UploadWrapper>
       <div className="total-input">

@@ -85,6 +85,7 @@ export default {
     {
       id: 0,
       name: "One Piece",
+      category: "action",
       episodes: 30,
       url:
         "https://www.listchallenges.com/f/items/32d4212b-7bd1-4047-8075-7ec0d0e35ab4.jpg",
@@ -94,6 +95,7 @@ export default {
     {
       id: 1,
       name: "Tokyo Ghoul",
+      category: "action",
       episodes: 30,
       url:
         "https://www.listchallenges.com/f/items/ca038602-a056-45ad-9e54-7c612c36983b.jpg",
@@ -103,6 +105,7 @@ export default {
     {
       id: 2,
       name: "Boku No Hero Academia",
+      category: "action",
       episodes: 30,
       url:
         "https://www.listchallenges.com/f/items/81415b4d-8d6b-41ea-b18d-25d55ce5721b.jpg",
@@ -112,6 +115,7 @@ export default {
     {
       id: 3,
       name: "Berserk",
+      category: "adult",
       episodes: 30,
       url:
         "https://www.listchallenges.com/f/items/66424290-8b57-4e78-8f3c-066af46d1436.jpg",
@@ -121,6 +125,7 @@ export default {
     {
       id: 4,
       name: "Attack on Titan",
+      category: "adult",
       episodes: 30,
       url:
         "https://www.listchallenges.com/f/items/442b737b-c090-4459-92ac-d0e5b4a26ae1.jpg",
@@ -130,6 +135,7 @@ export default {
     {
       id: 5,
       name: "Naruto",
+      category: "chanbara",
       episodes: 30,
       url:
         "https://www.listchallenges.com/f/items/91f96309-86f5-4e93-8da7-89f4c9384495.jpg",
@@ -139,6 +145,7 @@ export default {
     {
       id: 6,
       name: "One-Punch Man",
+      category: "chanbara",
       episodes: 30,
       url:
         "https://www.listchallenges.com/f/items/e57c36e8-966e-4d43-84ee-6222a01b4ca0.jpg",
@@ -148,6 +155,7 @@ export default {
     {
       id: 7,
       name: "Fullmetal Alchemist",
+      category: "chanbara",
       episodes: 30,
       url:
         "https://www.listchallenges.com/f/items/bc3538a2-4bfb-4be9-839f-b28c8bc6d889.jpg",
@@ -157,6 +165,7 @@ export default {
     {
       id: 8,
       name: "Death Note",
+      category: "fantasy",
       episodes: 30,
       url:
         "https://www.listchallenges.com/f/items/ecb44b60-bb6a-45ed-915f-7f0173475d87.jpg",
@@ -166,6 +175,7 @@ export default {
     {
       id: 9,
       name: "A Silent Voice",
+      category: "fantasy",
       episodes: 30,
       url:
         "https://www.listchallenges.com/f/items/81dca091-1585-49d2-b938-4b86fd6ce15a.jpg",
@@ -175,6 +185,7 @@ export default {
     {
       id: 10,
       name: "Black Butler",
+      category: "fantasy",
       episodes: 30,
       url:
         "https://www.listchallenges.com/f/items/e079e336-ef12-43c3-a937-c52a0d91b1b7.jpg",
@@ -184,6 +195,7 @@ export default {
     {
       id: 11,
       name: "Hunter X Hunter",
+      category: "omake",
       episodes: 30,
       url:
         "https://www.listchallenges.com/f/items/981de22a-e15f-4acc-9c7e-d4b58254860a.jpg",
@@ -195,6 +207,7 @@ export default {
     id: 1,
     role: "admin",
     name: "name_admin",
+    token: "1231231",
   },
   image_manga: [
     "http://proxy.imageinstant.com/?data=2Hv+r/yrlf9bEKLtVo4L0O8sVQHfKj8JV/ctY0DYt/2Y2JzUr14smvZskmgaSqDuRl+/CNqGT0GZ90QVoQRX1xnqXDS1ALjhQ2y2Jk+jyZ1Js666A0G/yBIxp9cJ16kMyaWxkruUEuc/hvPuwEhj8pJg0A/d0qQUZNFVhu/pFM/iilyfT07Qspx6eyuPaL80",

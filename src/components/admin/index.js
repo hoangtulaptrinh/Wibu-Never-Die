@@ -7,7 +7,6 @@ import Upload from "./Upload/Upload";
 const Admin = () => {
   const [screen, setScreen] = useState("new");
   const [idManga, setIDManga] = useState(null);
-  console.log(screen, idManga);
   return (
     <>
       <div style={screen === "new" ? {} : { display: "none" }}>
