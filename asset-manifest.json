@@ -1,19 +1,19 @@
 {
   "files": {
     "main.css": "/Wibu-Never-Die/static/css/main.69eda509.chunk.css",
-    "main.js": "/Wibu-Never-Die/static/js/main.bd9dcdf5.chunk.js",
-    "main.js.map": "/Wibu-Never-Die/static/js/main.bd9dcdf5.chunk.js.map",
+    "main.js": "/Wibu-Never-Die/static/js/main.3f3957a2.chunk.js",
+    "main.js.map": "/Wibu-Never-Die/static/js/main.3f3957a2.chunk.js.map",
     "runtime-main.js": "/Wibu-Never-Die/static/js/runtime-main.60a6d3f2.js",
     "runtime-main.js.map": "/Wibu-Never-Die/static/js/runtime-main.60a6d3f2.js.map",
     "static/css/2.82caf9b5.chunk.css": "/Wibu-Never-Die/static/css/2.82caf9b5.chunk.css",
-    "static/js/2.ab9c30a5.chunk.js": "/Wibu-Never-Die/static/js/2.ab9c30a5.chunk.js",
-    "static/js/2.ab9c30a5.chunk.js.map": "/Wibu-Never-Die/static/js/2.ab9c30a5.chunk.js.map",
+    "static/js/2.7b3b0e65.chunk.js": "/Wibu-Never-Die/static/js/2.7b3b0e65.chunk.js",
+    "static/js/2.7b3b0e65.chunk.js.map": "/Wibu-Never-Die/static/js/2.7b3b0e65.chunk.js.map",
     "index.html": "/Wibu-Never-Die/index.html",
-    "precache-manifest.67f642858762264bfd02a429d07eab25.js": "/Wibu-Never-Die/precache-manifest.67f642858762264bfd02a429d07eab25.js",
+    "precache-manifest.c6f260c85f38bbe7997978c1f16e0b67.js": "/Wibu-Never-Die/precache-manifest.c6f260c85f38bbe7997978c1f16e0b67.js",
     "service-worker.js": "/Wibu-Never-Die/service-worker.js",
     "static/css/2.82caf9b5.chunk.css.map": "/Wibu-Never-Die/static/css/2.82caf9b5.chunk.css.map",
     "static/css/main.69eda509.chunk.css.map": "/Wibu-Never-Die/static/css/main.69eda509.chunk.css.map",
-    "static/js/2.ab9c30a5.chunk.js.LICENSE.txt": "/Wibu-Never-Die/static/js/2.ab9c30a5.chunk.js.LICENSE.txt",
+    "static/js/2.7b3b0e65.chunk.js.LICENSE.txt": "/Wibu-Never-Die/static/js/2.7b3b0e65.chunk.js.LICENSE.txt",
     "static/media/CryGif.gif": "/Wibu-Never-Die/static/media/CryGif.da040284.gif",
     "static/media/HeartGif.gif": "/Wibu-Never-Die/static/media/HeartGif.df74e47b.gif",
     "static/media/Kabaneri_1366.png": "/Wibu-Never-Die/static/media/Kabaneri_1366.213676c0.png",
@@ -22,8 +22,8 @@
   "entrypoints": [
     "static/js/runtime-main.60a6d3f2.js",
     "static/css/2.82caf9b5.chunk.css",
-    "static/js/2.ab9c30a5.chunk.js",
+    "static/js/2.7b3b0e65.chunk.js",
     "static/css/main.69eda509.chunk.css",
-    "static/js/main.bd9dcdf5.chunk.js"
+    "static/js/main.3f3957a2.chunk.js"
   ]
 }
