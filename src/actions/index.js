@@ -1,20 +1,22 @@
 import actionTypes from "../const/actionTypes";
 import axios from "axios";
-import MockAdapter from "axios-mock-adapter";
+// import MockAdapter from "axios-mock-adapter";
 
-import fakeData from "../fakeData";
+// import fakeData from "../fakeData";
 import { toastSuccess, toastError } from "../Helper/ToastHelper";
 
-var mock = new MockAdapter(axios);
+// var mock = new MockAdapter(axios);
 
-mock.onGet("/manga").reply(200, fakeData.manga);
-mock.onPost("/log_in").reply(200, fakeData.log_in);
-mock.onGet("/image_manga").reply(200, fakeData.image_manga);
+// mock.onGet("/manga").reply(200, fakeData.manga);
+// mock.onPost("/log_in").reply(200, fakeData.log_in);
+// mock.onGet("/image_manga").reply(200, fakeData.image_manga);
+
+export const baseHost = "http://192.168.1.111:8080";
 
 export const getManga = () => {
   return (dispatch) => {
     axios
-      .get("/manga")
+      .get(`${baseHost}/mangas`)
       .then((res) => {
         dispatch(setManga(res.data));
       })
@@ -31,14 +33,20 @@ export const setManga = (data) => {
 export const logIn = (data) => {
   return (dispatch) => {
     axios
-      .post("/log_in", data)
+      .post(`${baseHost}/login`, data, { withCredentials: true })
       .then((res) => {
-        dispatch(setCurrentUser(res.data));
+        const user = {
+          id: 1,
+          name: res.data.username,
+          role: res.data.roles[0] === "ROLE_ADMIN" ? "admin" : "user",
+          token: res.data.accessToken,
+        };
+        dispatch(setCurrentUser(user));
         toastSuccess("Đăng Nhập Thành Công");
       })
       .catch((error) => {
         console.log(error);
-        toastError(error);
+        toastError("Sai Tài Khoản Hoặc Mật Khẩu");
       });
   };
 };

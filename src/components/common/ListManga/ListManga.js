@@ -11,12 +11,13 @@ import ListMangaWrapper from "./ListManga.style";
 import * as actions from "../../../actions/index";
 import {
   toastSuccess,
-  toastError,
   toastWarning,
+  toastError,
 } from "../../../Helper/ToastHelper";
 
 import HeartGif from "../../../asses/image/HeartGif.gif";
 import CryGif from "../../../asses/image/CryGif.gif";
+import isEmpty from "lodash/isEmpty";
 
 const ListManga = ({
   manga,
@@ -28,48 +29,85 @@ const ListManga = ({
   const [showFavoritesList, setShowFavoritesList] = useState(false);
   const [hoverFavoritesList, setHoverFavoritesList] = useState(false);
   const [arrayFavoriteList, setArrayFavoriteList] = useState([]);
+  const currentUser1 = localStorage.currentUser;
+  const token =
+    !!currentUser1 &&
+    !isEmpty(JSON.parse(currentUser1)) &&
+    JSON.parse(currentUser1).token;
+
+  var config = {
+    headers: { Authorization: "Bearer " + token },
+  };
   useEffect(() => {
     getManga();
     axios
-      .get("/manga")
-      .then((res) => setArrayFavoriteList([1, 2, 3, 4, 5]))
+      .get(`${actions.baseHost}/favourites`, config)
+      .then((res) => setArrayFavoriteList(res.data.map((item) => item.id)))
       .catch((err) => console.log(err));
     // eslint-disable-next-line
   }, []);
   const addToFavoritesList = (id) => {
     if (currentRoute === "/Wibu-Never-Die") {
-      toastSuccess(
-        `Đã Thêm ${
-          find(manga, (item) => item.id === id).name
-        } Vào Danh Sách Yêu Thích`
-      );
-      toastError(
-        `${
-          find(manga, (item) => item.id === id).name
-        } Đã Có Trong Vào Danh Sách Yêu Thích`
-      );
+      arrayFavoriteList.includes(id) &&
+        toastWarning(
+          `${
+            find(manga, (item) => item.id === id).name
+          } Đã Có Trong Vào Danh Sách Yêu Thích`
+        );
+      !arrayFavoriteList.includes(id) &&
+        axios
+          .post(
+            `${actions.baseHost}/favourites`,
+            {
+              mangaId: id,
+            },
+            config
+          )
+          .then((res) => {
+            toastSuccess(
+              `Đã Thêm ${
+                find(manga, (item) => item.id === id).name
+              } Vào Danh Sách Yêu Thích`
+            );
+            axios
+              .get(`${actions.baseHost}/favourites`, config)
+              .then((res) =>
+                setArrayFavoriteList(res.data.map((item) => item.id))
+              )
+              .catch((err) => console.log(err));
+          })
+          .catch((err) => toastError(err));
+      return;
+    }
+    !arrayFavoriteList.includes(id) &&
       toastWarning(
         `${
           find(manga, (item) => item.id === id).name
-        } Đã Có Trong Vào Danh Sách Yêu Thích`
+        } Không Có Trong Danh Sách Yêu Thích`
       );
-      return;
-    }
-    toastSuccess(
-      `Đã Bỏ ${
-        find(manga, (item) => item.id === id).name
-      } Ra Khỏi Danh Sách Yêu Thích`
-    );
-    toastError(
-      `${
-        find(manga, (item) => item.id === id).name
-      } Không Có Trong Danh Sách Yêu Thích`
-    );
-    toastWarning(
-      `${
-        find(manga, (item) => item.id === id).name
-      } Không Có Trong Danh Sách Yêu Thích`
-    );
+    arrayFavoriteList.includes(id) &&
+      axios
+        .delete(`${actions.baseHost}/favourites`, {
+          headers: { Authorization: "Bearer " + token },
+          data: {
+            mangaId: id,
+          },
+        })
+        .then((res) => {
+          toastSuccess(
+            `Đã Bỏ ${
+              find(manga, (item) => item.id === id).name
+            } Ra Khỏi Danh Sách Yêu Thích`
+          );
+          axios
+            .get(`${actions.baseHost}/favourites`, config)
+            .then((res) =>
+              setArrayFavoriteList(res.data.map((item) => item.id))
+            )
+            .catch((err) => console.log(err));
+        })
+        .catch((err) => toastError(err));
+    return;
   };
   const listManga = useMemo(() => {
     if (currentRoute === "/Wibu-Never-Die") {
@@ -92,11 +130,14 @@ const ListManga = ({
     textCategoryFilter,
     textMangaFilter,
   ]);
-
-  console.log();
+  const videoSource = "https://www.w3schools.com/tags/movie.mp4";
   return (
     <ListMangaWrapper>
       <div className="list-manga">
+        {/* <video autoPlay="autoplay" loop="loop" muted className={classes.Video} >
+                <source src={videoSource} type="video/mp4" />
+                Your browser does not support the video tag.
+            </video> */}
         {!hoverFavoritesList && <div className="background-image-blur" />}
         {hoverFavoritesList && (
           <div

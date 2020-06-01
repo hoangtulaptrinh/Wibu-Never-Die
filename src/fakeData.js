@@ -2,7 +2,7 @@ export default {
   category: [
     {
       id: 0,
-      name: "all",
+      name: "",
       amount: 30,
     },
     {

@@ -40,14 +40,23 @@ const LeftSideBar = ({
     setCurrentCategoryOnClick(id);
     setTextCategoryFilter(name);
   };
+  const currentUser1 = localStorage.currentUser;
+  const token =
+    !!currentUser1 &&
+    !isEmpty(JSON.parse(currentUser1)) &&
+    JSON.parse(currentUser1).token;
+
+  var config = {
+    headers: { Authorization: "Bearer " + token },
+  };
+
   useEffect(() => {
     axios
-      .get("/manga")
-      .then((res) => setArrayFavoriteList([1, 2, 3, 4, 5]))
+      .get(`${actions.baseHost}/favourites`, config)
+      .then((res) => setArrayFavoriteList(res.data.map((item) => item.id)))
       .catch((err) => console.log(err));
     // eslint-disable-next-line
   }, []);
-  console.log(searchText);
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
 
@@ -55,11 +64,9 @@ const LeftSideBar = ({
   const toggle1 = () => setModal1(!modal1);
 
   const formik = useFormik({
-    initialValues: { email: "", password: "" },
+    initialValues: { username: "", password: "" },
     validationSchema: Yup.object({
-      email: Yup.string()
-        .email("không đúng định dạng mail")
-        .required("hãy điền mail của bạn"),
+      username: Yup.string().required("hãy điền tên đăng nhập của bạn"),
       password: Yup.string()
         .min(8)
         .max(15)
@@ -103,9 +110,14 @@ const LeftSideBar = ({
     toggle1();
   };
   const formikSignUp = useFormik({
-    initialValues: { name: "", email: "", password: "", passwordRepeat: "" },
+    initialValues: {
+      username: "",
+      email: "",
+      password: "",
+      passwordRepeat: "",
+    },
     validationSchema: Yup.object({
-      name: Yup.string().required("Hãy điền tên của bạn"),
+      username: Yup.string().required("Hãy điền tên của bạn"),
       email: Yup.string().email().required("Hãy điền email của bạn"),
       password: Yup.string()
         .min(8)
@@ -122,7 +134,13 @@ const LeftSideBar = ({
     }),
     onSubmit: (values) => {
       axios
-        .post("/log_in", values)
+        .post(`${actions.baseHost}/signup`, {
+          username: values.username,
+          email: values.email,
+          password: values.password,
+          name: values.username,
+          role: ["user"],
+        })
         .then((res) => {
           toastSuccess("Bạn Đã Đăng Ký Thành Công Hãy Đăng Nhập Đi");
           toggle1();
@@ -131,13 +149,6 @@ const LeftSideBar = ({
     },
   });
 
-  // const currentUser1 = localStorage.currentUser;
-  // const token =
-  //   !!currentUser1 &&
-  //   !isEmpty(JSON.parse(currentUser1)) &&
-  //   JSON.parse(currentUser1).token;
-  // console.log(token);
-  // console.log(fakeData.category, manga);
   const category = fakeData.category;
   const mapCategory = useMemo(() => {
     if (currentRoute === "/Wibu-Never-Die") {
@@ -223,7 +234,8 @@ const LeftSideBar = ({
               onClick={() => onClickCategory(category.id, category.name)}
               onMouseDown={() => setCurrentCategoryMouseDown(category.id)}
             >
-              {`${category.name} (${category.amount})`}
+              {!category.name && "all"}
+              {!!category.name && `${category.name} (${category.amount})`}
             </div>
           ))}
         </div>
@@ -253,21 +265,20 @@ const LeftSideBar = ({
         </div>
         <Modal isOpen={modal} toggle={toggle}>
           <form onSubmit={formik.handleSubmit}>
-            <ModalHeader toggle={toggle}>Log In</ModalHeader>
+            <ModalHeader toggle={toggle}>Đăng Nhập</ModalHeader>
             <ModalBody>
               <FormGroup>
                 <Label for="exampleEmail">Email</Label>
                 <Input
-                  type="email"
-                  name="email"
-                  id="email"
-                  placeholder="Your Email"
+                  name="username"
+                  id="username"
+                  placeholder="Your username"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
-                  value={formik.values.email}
+                  value={formik.values.username}
                 />
-                {formik.touched.email && formik.errors.email ? (
-                  <div style={{ color: "red" }}>{formik.errors.email}</div>
+                {formik.touched.username && formik.errors.username ? (
+                  <div style={{ color: "red" }}>{formik.errors.username}</div>
                 ) : null}
               </FormGroup>
               <FormGroup>
@@ -303,21 +314,23 @@ const LeftSideBar = ({
 
         <Modal isOpen={modal1} toggle={toggle1}>
           <form onSubmit={formikSignUp.handleSubmit}>
-            <ModalHeader toggle={toggle1}>Log In</ModalHeader>
+            <ModalHeader toggle={toggle1}>Đăng Ký</ModalHeader>
             <ModalBody>
               <FormGroup>
                 <Label for="exampleName">Name</Label>
                 <Input
-                  type="name"
-                  name="name"
-                  id="name"
+                  name="username"
+                  id="username"
                   placeholder="Your Name"
                   onChange={formikSignUp.handleChange}
                   onBlur={formikSignUp.handleBlur}
-                  value={formikSignUp.values.name}
+                  value={formikSignUp.values.username}
                 />
-                {formikSignUp.touched.name && formikSignUp.errors.name ? (
-                  <div style={{ color: "red" }}>{formikSignUp.errors.name}</div>
+                {formikSignUp.touched.username &&
+                formikSignUp.errors.username ? (
+                  <div style={{ color: "red" }}>
+                    {formikSignUp.errors.username}
+                  </div>
                 ) : null}
               </FormGroup>
               <FormGroup>

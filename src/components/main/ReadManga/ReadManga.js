@@ -15,19 +15,29 @@ import ReadMangaWrapper from "./ReadManga.style";
 const ReadManga = ({ imageManga, getImageManga }) => {
   const { navigate } = useNavigation();
   const urlParam = new URLSearchParams(window.location.search);
-  const [currentEpisodes, setCurrentEpisodes] = useState(urlParam.get("id"));
+  const [currentEpisodes, setCurrentEpisodes] = useState(
+    Number(urlParam.get("episodes"))
+  );
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const toggle = () => setDropdownOpen((prevState) => !prevState);
 
   useEffect(() => {
     getImageManga({
-      id: currentEpisodes,
-      episodes: urlParam.get("episodes"),
+      id: urlParam.get("id"),
+      episodes: String(currentEpisodes),
     });
     // eslint-disable-next-line
-  }, []);
-  console.log(currentEpisodes);
+  }, [currentEpisodes]);
+
+  const handleGo = (key) => {
+    if (key === "back") {
+      currentEpisodes > 1 && setCurrentEpisodes(currentEpisodes - 1);
+      return;
+    }
+    currentEpisodes < Number(urlParam.get("total")) &&
+      setCurrentEpisodes(currentEpisodes + 1);
+  };
   return (
     <ReadMangaWrapper>
       <div className="read-manga" id="read-manga-scroll">
@@ -39,24 +49,25 @@ const ReadManga = ({ imageManga, getImageManga }) => {
             alt="img-logo"
             onClick={() => navigate("/Wibu-Never-Die")}
           />
-          <Button outline color="info">
+          <Button outline color="info" onClick={() => handleGo("back")}>
             Chapter Trước
           </Button>
           <Dropdown isOpen={dropdownOpen} toggle={toggle}>
-            <DropdownToggle caret>{`One-Piece - Chapter 1`}</DropdownToggle>
+            <DropdownToggle
+              caret
+            >{`Chapter ${currentEpisodes}`}</DropdownToggle>
             <DropdownMenu>
-              <DropdownItem>
-                <span className="chapter">One-Piece - Chapter 1</span>
-              </DropdownItem>
-              <DropdownItem>
-                <span className="chapter">One-Piece - Chapter 2</span>
-              </DropdownItem>
-              <DropdownItem>
-                <span className="chapter">One-Piece - Chapter 3</span>
-              </DropdownItem>
+              {[...Array(Number(urlParam.get("total")))].map((item, index) => (
+                <DropdownItem
+                  key={index}
+                  onClick={() => setCurrentEpisodes(index + 1)}
+                >
+                  <span className="chapter">{`Chapter ${index + 1}`}</span>
+                </DropdownItem>
+              ))}
             </DropdownMenu>
           </Dropdown>
-          <Button outline color="info">
+          <Button outline color="info" onClick={() => handleGo("next")}>
             Chapter Sau
           </Button>
         </div>

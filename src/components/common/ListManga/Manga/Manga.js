@@ -59,7 +59,7 @@ const Manga = (props) => {
   const the_loai = [
     {
       id: 0,
-      name: "all",
+      name: "",
       amount: 30,
     },
     {
@@ -143,15 +143,20 @@ const Manga = (props) => {
   const toggle2 = () => setModal1(!modal1);
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [the_loai_ht, set_the_loai_ht] = useState("all");
   const [priview, setPriview] = useState(null);
   const toggle3 = () => setDropdownOpen((prevState) => !prevState);
 
   const formik = useFormik({
-    initialValues: { cover: manga.url, name: manga.name, title: manga.title },
+    initialValues: {
+      cover: manga.url,
+      name: manga.name,
+      category: manga.category,
+      title: manga.title,
+    },
     validationSchema: Yup.object({
       cover: Yup.mixed().required("hãy thêm bìa truyện"),
       name: Yup.string().required("hãy nhập tên truyện"),
+      category: Yup.string().required("hãy chọn thể loại"),
       title: Yup.string().required("hãy nhập nội dung truyện"),
     }),
     onSubmit: (values) => {
@@ -213,7 +218,7 @@ const Manga = (props) => {
                           navigate(
                             `/Wibu-Never-Die/Read-Manga?id=${
                               manga.id
-                            }&&episodes=${index + 1}`
+                            }&&episodes=${index + 1}&&total=${manga.episodes}`
                           )
                         }
                       >
@@ -225,9 +230,6 @@ const Manga = (props) => {
             </Row>
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={toggle}>
-              Yêu Thích
-            </Button>
             <Button color="secondary" onClick={toggle}>
               Xem Truyện Khác
             </Button>
@@ -274,12 +276,16 @@ const Manga = (props) => {
               <FormGroup>
                 <Dropdown isOpen={dropdownOpen} toggle={toggle3}>
                   <DropdownToggle caret>
-                    {the_loai_ht === "all" && "Chọn Thể Loại"}
-                    {the_loai_ht !== "all" && the_loai_ht}
+                    {!formik.values.category && "Chọn Thể Loại"}
+                    {!!formik.values.category && formik.values.category}
                   </DropdownToggle>
                   <DropdownMenu>
                     {the_loai.map((item, index) => (
-                      <DropdownItem onClick={() => set_the_loai_ht(item.name)}>
+                      <DropdownItem
+                        onClick={() =>
+                          formik.setFieldValue("category", item.name)
+                        }
+                      >
                         {item.name}
                       </DropdownItem>
                     ))}
