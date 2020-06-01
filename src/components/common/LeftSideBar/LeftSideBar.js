@@ -29,6 +29,8 @@ const LeftSideBar = ({
   logIn,
   setTextMangaFilter,
   setTextCategoryFilter,
+  isShowAboutUs,
+  setIsShowAboutUs,
 }) => {
   const { navigate } = useNavigation();
   const [searchText, setSearchText] = useState("");
@@ -211,6 +213,26 @@ const LeftSideBar = ({
                   onClick={() => navigate("/Wibu-Never-Die/Favorites-Page")}
                 />
               )}
+          </div>
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            {!isShowAboutUs && (
+              <Button
+                color="success"
+                outline
+                onClick={() => setIsShowAboutUs(true)}
+              >
+                Người Sáng Lập
+              </Button>
+            )}
+            {isShowAboutUs && (
+              <Button
+                color="primary"
+                outline
+                onClick={() => setIsShowAboutUs(false)}
+              >
+                Tiếp Tục Đọc Truyện
+              </Button>
+            )}
           </div>
           <div className="wrapper">
             <div className="search-icon">

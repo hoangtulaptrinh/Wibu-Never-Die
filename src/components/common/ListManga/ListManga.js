@@ -27,6 +27,7 @@ const ListManga = ({
   getManga,
   textMangaFilter,
   textCategoryFilter,
+  isShowAboutUs
 }) => {
   const currentRoute = useCurrentRoute().url.pathname;
   const [showFavoritesList, setShowFavoritesList] = useState(false);
@@ -166,7 +167,7 @@ const ListManga = ({
           />
         )}
         <div id="main-content-scroll" className="main-content">
-          <Row>
+          {!isShowAboutUs&&<Row>
             {listManga.map((manga, index) => (
               <Col sm="6" key={index}>
                 <div className="cover-manga">
@@ -179,11 +180,11 @@ const ListManga = ({
                 </div>
               </Col>
             ))}
-          </Row>
+          </Row>}
           {localStorage.currentUser !== undefined && showFavoritesList && (
             <FavoritesList setHoverFavoritesList={setHoverFavoritesList} />
           )}
-          <AuthorDeveloper />
+         {isShowAboutUs&& <AuthorDeveloper />}
         </div>
       </div>
     </ListMangaWrapper>
