@@ -4,6 +4,7 @@ import axios from "axios";
 
 // import fakeData from "../fakeData";
 import { toastSuccess, toastError } from "../Helper/ToastHelper";
+import isEmpty from "lodash/isEmpty";
 
 // var mock = new MockAdapter(axios);
 
@@ -70,10 +71,24 @@ export const getImageManga = (data) => {
 };
 
 export const createNewManga = (data) => {
+  const currentUser1 = localStorage.currentUser;
+  const token =
+    !!currentUser1 &&
+    !isEmpty(JSON.parse(currentUser1)) &&
+    JSON.parse(currentUser1).token;
+
+  var config = {
+    headers: { Authorization: "Bearer " + token },
+  };
   return (dispatch) => {
-    console.log(data);
+    const obj = new FormData();
+    obj.append("file", data.cover);
+    obj.append("name", data.name);
+    obj.append("category", data.category);
+    obj.append("title", data.title);
+
     axios
-      .get("/image_manga", data)
+      .post(`${baseHost}/mangas`, obj, config)
       .then((res) => {
         dispatch(setCreateNewManga(true));
       })

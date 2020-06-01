@@ -19,7 +19,7 @@ import classes from "./BackgroundVideo.module.css";
 
 import HeartGif from "../../../asses/image/HeartGif.gif";
 import CryGif from "../../../asses/image/CryGif.gif";
-import video from "../../../asses/video/boruto.mp4";
+import video from "../../../asses/video/videoplayback.mp4";
 
 const ListManga = ({
   manga,

@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo } from "react";
 import { connect } from "react-redux";
-import { Row, Col } from "reactstrap";
-
+import { useNavigation } from "react-navi";
+import { Row, Col, Button } from "reactstrap";
 import Manga from "../../common/ListManga/Manga";
 import EditMangaWrapper from "./EditManga.style";
 import * as actions from "../../../actions/index";
@@ -14,6 +14,7 @@ const EditManga = ({
   setScreen,
   setIDManga,
 }) => {
+  const { navigate } = useNavigation();
   useEffect(() => {
     getManga();
     // eslint-disable-next-line
@@ -32,6 +33,16 @@ const EditManga = ({
       <div className="list-manga">
         <div className="background-image-blur" />
         <div id="main-content-scroll" className="main-content">
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <Button color="info" onClick={() => navigate("/Wibu-Never-Die")}>
+              Home
+            </Button>
+          </div>
           <Row>
             {listManga.map((manga, index) => (
               <Col sm="6" key={index}>

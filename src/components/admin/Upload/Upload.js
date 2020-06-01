@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { Button, Input, Label } from "reactstrap";
+import { useNavigation } from "react-navi";
 import axios from "axios";
 
 import UploadWrapper from "./Upload.style";
 
 const Upload = () => {
+  const { navigate } = useNavigation();
   const [chapter, setChapter] = useState(1);
   const [priview, setPriview] = useState(null);
   const [files, setFiles] = useState(null);
@@ -56,6 +58,13 @@ const Upload = () => {
           multiple
           onChange={priviewImg}
         />
+        <Button
+          color="info"
+          style={{ marginRight: "50px" }}
+          onClick={() => navigate("/Wibu-Never-Die")}
+        >
+          Home
+        </Button>
         <Label>Tập</Label>
         <Input value={chapter} onChange={(e) => setChapter(e.target.value)} />
       </div>

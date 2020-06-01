@@ -4,6 +4,7 @@ import { useFormik } from "formik";
 import { useNavigation } from "react-navi";
 import axios from "axios";
 import * as Yup from "yup";
+import { baseHost } from "../../../../actions";
 import {
   Button,
   Modal,
@@ -186,9 +187,9 @@ const Manga = (props) => {
             onMouseLeave={hideInfoManga}
           >
             <img
-              style={{ opacity }}
+              style={{ opacity, objectFit: "cover" }}
               id="mangaTooltip"
-              src={manga.url}
+              src={`${baseHost}/uploads/${manga.url}`}
               alt="cover-manga"
               width="210"
               height="220"
@@ -229,7 +230,16 @@ const Manga = (props) => {
                 ))}
             </Row>
           </ModalBody>
-          <ModalFooter>
+          <ModalFooter
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <span style={{fontWeight: 500}}>Giới Thiệu Về Truyện</span>
+            <div>{manga.title}</div>
             <Button color="secondary" onClick={toggle}>
               Xem Truyện Khác
             </Button>
@@ -285,11 +295,15 @@ const Manga = (props) => {
                         onClick={() =>
                           formik.setFieldValue("category", item.name)
                         }
+                        key={index}
                       >
                         {item.name}
                       </DropdownItem>
                     ))}
                   </DropdownMenu>
+                  {formik.touched.category && formik.errors.category ? (
+                    <div style={{ color: "red" }}>{formik.errors.category}</div>
+                  ) : null}
                 </Dropdown>
               </FormGroup>
               <FormGroup>
