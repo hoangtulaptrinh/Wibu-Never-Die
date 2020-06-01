@@ -15,7 +15,7 @@ const ListMangaWrapper = styled.div`
       position: absolute;
       height: 100vh;
       width: 85vw;
-      background: url(${Kabaneri});
+      // background: url(${Kabaneri});
       filter: blur(5px);
       -webkit-filter: blur(5px);
     }

@@ -4,6 +4,7 @@ import { Row, Col } from "reactstrap";
 import { useCurrentRoute } from "react-navi";
 import axios from "axios";
 import find from "lodash/find";
+import isEmpty from "lodash/isEmpty";
 
 import Manga from "./Manga";
 import FavoritesList from "../FavoritesList";
@@ -14,10 +15,11 @@ import {
   toastWarning,
   toastError,
 } from "../../../Helper/ToastHelper";
+import classes from "./BackgroundVideo.module.css";
 
 import HeartGif from "../../../asses/image/HeartGif.gif";
 import CryGif from "../../../asses/image/CryGif.gif";
-import isEmpty from "lodash/isEmpty";
+import video from "../../../asses/video/boruto.mp4";
 
 const ListManga = ({
   manga,
@@ -130,14 +132,21 @@ const ListManga = ({
     textCategoryFilter,
     textMangaFilter,
   ]);
-  const videoSource = "https://www.w3schools.com/tags/movie.mp4";
+
   return (
     <ListMangaWrapper>
       <div className="list-manga">
-        {/* <video autoPlay="autoplay" loop="loop" muted className={classes.Video} >
-                <source src={videoSource} type="video/mp4" />
-                Your browser does not support the video tag.
-            </video> */}
+        <video
+          autoPlay="autoplay"
+          loop="loop"
+          muted
+          className={classes.Video}
+          style={{ position: "absolute" }}
+        >
+          <source src={video} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+
         {!hoverFavoritesList && <div className="background-image-blur" />}
         {hoverFavoritesList && (
           <div
