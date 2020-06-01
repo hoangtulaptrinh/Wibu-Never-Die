@@ -57,12 +57,17 @@ export const setCurrentUser = (data) => {
 };
 
 export const getImageManga = (data) => {
-  console.log(data);
   return (dispatch) => {
     axios
-      .get("/image_manga", data)
+      .get(`${baseHost}/mangas/${data.id}/chapters`, data)
       .then((res) => {
-        dispatch(setImageManga(res.data));
+        dispatch(
+          setImageManga(
+            res.data[data.episodes - 1].pages.map(
+              (item) => `${baseHost}/uploads/${item.imagePath}`
+            )
+          )
+        );
       })
       .catch((error) => {
         console.log(error);
@@ -91,11 +96,16 @@ export const createNewManga = (data) => {
       .post(`${baseHost}/mangas`, obj, config)
       .then((res) => {
         dispatch(setCreateNewManga(true));
+        dispatch(setNewIDManga(res.data.id));
       })
       .catch((error) => {
         dispatch(setCreateNewManga(false));
       });
   };
+};
+
+export const setNewIDManga = (data) => {
+  return { type: actionTypes.setNewIDManga, data: data };
 };
 
 export const setCreateNewManga = (data) => {

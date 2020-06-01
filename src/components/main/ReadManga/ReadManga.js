@@ -25,7 +25,7 @@ const ReadManga = ({ imageManga, getImageManga }) => {
   useEffect(() => {
     getImageManga({
       id: urlParam.get("id"),
-      episodes: String(currentEpisodes),
+      episodes: Number(currentEpisodes),
     });
     // eslint-disable-next-line
   }, [currentEpisodes]);

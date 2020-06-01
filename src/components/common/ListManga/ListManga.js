@@ -20,6 +20,7 @@ import classes from "./BackgroundVideo.module.css";
 import HeartGif from "../../../asses/image/HeartGif.gif";
 import CryGif from "../../../asses/image/CryGif.gif";
 import video from "../../../asses/video/videoplayback.mp4";
+import AuthorDeveloper from "./AuthorDeveloper";
 
 const ListManga = ({
   manga,
@@ -182,6 +183,7 @@ const ListManga = ({
           {localStorage.currentUser !== undefined && showFavoritesList && (
             <FavoritesList setHoverFavoritesList={setHoverFavoritesList} />
           )}
+          <AuthorDeveloper />
         </div>
       </div>
     </ListMangaWrapper>

@@ -20,7 +20,12 @@ import { useFormik } from "formik";
 
 import * as actions from "../../../actions/index";
 
-const NewManga = ({ createNewManga, setScreen, statusCreateNewManga }) => {
+const NewManga = ({
+  createNewManga,
+  setScreen,
+  statusCreateNewManga,
+  setCreateNewManga,
+}) => {
   const { navigate } = useNavigation();
 
   const [modal, setModal] = useState(false);
@@ -129,8 +134,11 @@ const NewManga = ({ createNewManga, setScreen, statusCreateNewManga }) => {
   ];
 
   useEffect(() => {
-    statusCreateNewManga && setScreen("upload");
-  }, [setScreen, statusCreateNewManga]);
+    if (statusCreateNewManga) {
+      setScreen("upload");
+      setCreateNewManga(false);
+    }
+  }, [setCreateNewManga, setScreen, statusCreateNewManga]);
 
   return (
     <div>
@@ -148,9 +156,9 @@ const NewManga = ({ createNewManga, setScreen, statusCreateNewManga }) => {
           <Button color="info" onClick={() => navigate("/Wibu-Never-Die")}>
             Home
           </Button>
-          <Button color="primary" onClick={() => setScreen("edit")}>
+          {/* <Button color="primary" onClick={() => setScreen("edit")}>
             EditManga
-          </Button>
+          </Button> */}
         </div>
         <Modal isOpen={modal} toggle={toggle}>
           <form onSubmit={formik.handleSubmit}>
@@ -250,6 +258,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     createNewManga: (data) => {
       dispatch(actions.createNewManga(data));
+    },
+    setCreateNewManga: (data) => {
+      dispatch(actions.setCreateNewManga(data));
     },
   };
 };
