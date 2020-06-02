@@ -1,29 +1,33 @@
 {
   "files": {
-    "main.css": "/Wibu-Never-Die/static/css/main.69eda509.chunk.css",
-    "main.js": "/Wibu-Never-Die/static/js/main.3f3957a2.chunk.js",
-    "main.js.map": "/Wibu-Never-Die/static/js/main.3f3957a2.chunk.js.map",
+    "main.css": "/Wibu-Never-Die/static/css/main.44a4cf22.chunk.css",
+    "main.js": "/Wibu-Never-Die/static/js/main.3d3ea3e7.chunk.js",
+    "main.js.map": "/Wibu-Never-Die/static/js/main.3d3ea3e7.chunk.js.map",
     "runtime-main.js": "/Wibu-Never-Die/static/js/runtime-main.60a6d3f2.js",
     "runtime-main.js.map": "/Wibu-Never-Die/static/js/runtime-main.60a6d3f2.js.map",
     "static/css/2.82caf9b5.chunk.css": "/Wibu-Never-Die/static/css/2.82caf9b5.chunk.css",
-    "static/js/2.7b3b0e65.chunk.js": "/Wibu-Never-Die/static/js/2.7b3b0e65.chunk.js",
-    "static/js/2.7b3b0e65.chunk.js.map": "/Wibu-Never-Die/static/js/2.7b3b0e65.chunk.js.map",
+    "static/js/2.4bfbc13f.chunk.js": "/Wibu-Never-Die/static/js/2.4bfbc13f.chunk.js",
+    "static/js/2.4bfbc13f.chunk.js.map": "/Wibu-Never-Die/static/js/2.4bfbc13f.chunk.js.map",
     "index.html": "/Wibu-Never-Die/index.html",
-    "precache-manifest.c6f260c85f38bbe7997978c1f16e0b67.js": "/Wibu-Never-Die/precache-manifest.c6f260c85f38bbe7997978c1f16e0b67.js",
+    "precache-manifest.7c5fe265a9e39b87439598c97f458d7b.js": "/Wibu-Never-Die/precache-manifest.7c5fe265a9e39b87439598c97f458d7b.js",
     "service-worker.js": "/Wibu-Never-Die/service-worker.js",
     "static/css/2.82caf9b5.chunk.css.map": "/Wibu-Never-Die/static/css/2.82caf9b5.chunk.css.map",
-    "static/css/main.69eda509.chunk.css.map": "/Wibu-Never-Die/static/css/main.69eda509.chunk.css.map",
-    "static/js/2.7b3b0e65.chunk.js.LICENSE.txt": "/Wibu-Never-Die/static/js/2.7b3b0e65.chunk.js.LICENSE.txt",
+    "static/css/main.44a4cf22.chunk.css.map": "/Wibu-Never-Die/static/css/main.44a4cf22.chunk.css.map",
+    "static/js/2.4bfbc13f.chunk.js.LICENSE.txt": "/Wibu-Never-Die/static/js/2.4bfbc13f.chunk.js.LICENSE.txt",
     "static/media/CryGif.gif": "/Wibu-Never-Die/static/media/CryGif.da040284.gif",
     "static/media/HeartGif.gif": "/Wibu-Never-Die/static/media/HeartGif.df74e47b.gif",
     "static/media/Kabaneri_1366.png": "/Wibu-Never-Die/static/media/Kabaneri_1366.213676c0.png",
-    "static/media/Kabaneri_1920.png": "/Wibu-Never-Die/static/media/Kabaneri_1920.9195e018.png"
+    "static/media/Kabaneri_1920.png": "/Wibu-Never-Die/static/media/Kabaneri_1920.9195e018.png",
+    "static/media/duong.jpg": "/Wibu-Never-Die/static/media/duong.15bd35eb.jpg",
+    "static/media/thang.jpg": "/Wibu-Never-Die/static/media/thang.f0a638ed.jpg",
+    "static/media/trung.jpg": "/Wibu-Never-Die/static/media/trung.7ac20e63.jpg",
+    "static/media/videoplayback.mp4": "/Wibu-Never-Die/static/media/videoplayback.6b1998dc.mp4"
   },
   "entrypoints": [
     "static/js/runtime-main.60a6d3f2.js",
     "static/css/2.82caf9b5.chunk.css",
-    "static/js/2.7b3b0e65.chunk.js",
-    "static/css/main.69eda509.chunk.css",
-    "static/js/main.3f3957a2.chunk.js"
+    "static/js/2.4bfbc13f.chunk.js",
+    "static/css/main.44a4cf22.chunk.css",
+    "static/js/main.3d3ea3e7.chunk.js"
   ]
 }

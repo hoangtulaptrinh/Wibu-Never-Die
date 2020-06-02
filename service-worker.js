@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/Wibu-Never-Die/precache-manifest.c6f260c85f38bbe7997978c1f16e0b67.js"
+  "/Wibu-Never-Die/precache-manifest.7c5fe265a9e39b87439598c97f458d7b.js"
 );
 
 self.addEventListener('message', (event) => {
